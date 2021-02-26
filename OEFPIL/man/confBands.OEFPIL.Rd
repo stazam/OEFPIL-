@@ -9,11 +9,11 @@
    confBands(object, xx, signif.level = 0.05)
 }
 \arguments{
-\item{object}{object of class 'OEFPIL'.}
-
 \item{xx}{numerical vector of points, where confidence bands will be calculated.}
 
 \item{signif.level}{numerical value or vector of significance levels for confidence intervals (default value is 0.05)}
+
+\item{object}{object of class 'OEFPIL'.}
 }
 \value{
 Matrix with named columns of estimated pointwise confidence bands of estimated function from on object \code{OEFPIL}. And also points where the bands are calculated.
@@ -25,23 +25,15 @@ Function calculates pointwise confidence bands of estimated function from 'OEFPI
 We can add one numerical value or vector of numerical values of significance levels for confidence intervals.
 }
 \examples{
-library(MASS)
-
-##Creating a data file
-steamdata <- steam
-colnames(steamdata) <- c("x","y")
-startsteam <- list(b1 = 5, b2 = 8, b3 = 200)
-k <- nrow(steamdata)
-CM <- diag(rep(0.1,2*k))
-
-##Creating OEFPIL object
-st1 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam, CM, useNLS = F)
+\dontshow{
+utils::example("coef.OEFPIL",echo=FALSE)}
+##-- Continuing the coef.OEFPIL(.) example:
 
 ##Use of confBands function with default parameters
-(a <- confBands.OEFPIL(st1))
+(a <- confBands(st1))
 
 #vector of numerical values
-(b <- confBands.OEFPIL(st1,signif.level = c(0.01,0.05)))
+(b <- confBands(st1,signif.level = c(0.01,0.05)))
 
 }
 \seealso{

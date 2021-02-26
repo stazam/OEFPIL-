@@ -30,17 +30,9 @@ Plot of the iterated linearization estimate from an OEPFIL object.
 If the signif.level parameter is missing, we do not plot any confidence bands, although the values will be set to 0.05.
 }
 \examples{
-library(MASS)
-
-##Creating a data file
-steamdata <- steam
-colnames(steamdata) <- c("x","y")
-startsteam <- list(b1 = 5, b2 = 8, b3 = 200)
-k <- nrow(steamdata)
-CM <- diag(rep(12,2*k))
-
-##Creating OEFPIL object
-st1 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam, CM, useNLS = F)
+\dontshow{
+utils::example("coef.OEFPIL",echo=FALSE)}
+##-- Continuing the coef.OEFPIL(.) example:
 
 ##Use of plot function with default parameters, signif.level is not set up...No confidence bands
 plot(st1)

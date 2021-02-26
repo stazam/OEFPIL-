@@ -17,17 +17,9 @@ Function will print out the information about object of class 'OEFPIL'.
 Function will print the formula and estimated parameters of model from an object \code{OEFPIL}.
 }
 \examples{
-library(MASS)
-
-##Creating a data file
-steamdata <- steam
-colnames(steamdata) <- c("x","y")
-startsteam <- list(b1 = 5, b2 = 8, b3 = 200)
-k <- nrow(steamdata)
-CM <- diag(rep(0.1,2*k))
-
-##Creating OEFPIL object
-st1 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam, CM, useNLS = F)
+\dontshow{
+utils::example("coef.OEFPIL",echo=FALSE)}
+##-- Continuing the coef.OEFPIL(.) example:
 
 ##Use of print function
 print(st1)

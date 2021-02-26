@@ -15,33 +15,22 @@
 #' @seealso \code{\link{OEFPIL}}
 #'
 #' @examples
-#' library(MASS)
-#'
-#' ##Creating a data file
-#' steamdata <- steam
-#' colnames(steamdata) <- c("x","y")
-#' startsteam <- list(b1 = 5, b2 = 8, b3 = 200)
-#' k <- nrow(steamdata)
-#' CM <- diag(rep(0.1,2*k))
-#'
-#' ##Creating OEFPIL object
-#' st1 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam, CM, useNLS = F)
+#' \dontshow{
+#' utils::example("coef.OEFPIL",echo=FALSE)}
+#' ##-- Continuing the coef.OEFPIL(.) example:
 #'
 #' ##Use of confBands function with default parameters
-#' (a <- confBands.OEFPIL(st1))
+#' (a <- confBands(st1))
 #'
 #' #vector of numerical values
-#' (b <- confBands.OEFPIL(st1,signif.level = c(0.01,0.05)))
+#' (b <- confBands(st1,signif.level = c(0.01,0.05)))
 #'
 #' @export
-
-
-confBands <- function(x) {
-  UseMethod("ConfBands")
+confBands <- function(x, xx, signif.level) {
+  UseMethod("confBands")
 }
 
-################################################################################
-
+#' @export
 confBands.OEFPIL <- function(output.form, xx, signif.level = 0.05) {
   ## This is for calculating confidence bands of estimated function from OEFPIL.
   ## output.form . . . output from OEFPIL()
@@ -92,7 +81,6 @@ confBands.OEFPIL <- function(output.form, xx, signif.level = 0.05) {
     return(invisible(list(xx = xx, yy = yy, PointwiseCB = PointwiseCB)))
   }
 }
-
 
 
 

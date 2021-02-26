@@ -16,14 +16,11 @@ Function for parameter estimation graph with error bars (plus minus standard dev
 In the case, if we add estimated parameters with NaN, NA, Inf or -Inf, we get empty plot.
 }
 \examples{
-library(MASS)
-steamdata <- steam
-colnames(steamdata) <- c("x","y")
-n <- nrow(steamdata)
-CM1 <- diag(rep(0.1,2*n))
+\dontshow{
+utils::example("coef.OEFPIL",echo=FALSE)}
+##-- Continuing the coef.OEFPIL(.) example:
+
 CM2 <- diag(c(rep(0.2^2,n), rep(0.1^2,n)))
-st1 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), list(b1 = 5, b2 = 8, b3 = 200),
-             CM1, useNLS = F)
 st2 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), list(b1 = 5, b2 = 8, b3 = 200),
              CM2, useNLS = F)
 
