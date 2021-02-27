@@ -8,6 +8,8 @@
 #'
 #' @details In the case, if we add estimated parameters with NaN, NA, Inf or -Inf, we get empty plot.
 #'
+#' @note Due to possible large differences in units of estimated parameters, the \code{scale} argument for facetting is set to "free". It should be taken into account when interpreting the results.
+#'
 #' @seealso \code{\link{OEFPIL}}, \code{\link{curvplot.OEFPIL}} and code{\link{plot.OEFPIL}}.
 #'
 #' @examples
