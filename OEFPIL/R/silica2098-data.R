@@ -25,6 +25,6 @@
 #'
 #' @examples
 #' attach(silica2098)
-#' plot(h, Fload, main = 'Graph of nanoindentation data', xlab = 'depth', ylab = 'Load',
+#' plot(h, Fload, main = 'Graph of nanoindentation data', xlab = 'Depth (nm)', ylab = 'Load (mN)',
 #' col = 'darkgreen', cex = 1)
 "silica2098"
