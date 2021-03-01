@@ -1,16 +1,16 @@
 #' @name confint.OEFPIL
-#' @title Calculate confidence intervals for an object of class 'OEFPIL'
-#' @description Function calculate confidence intervals for parameters counted by OEFPIL function.
+#' @title Confidence intervals for OEFPIL parameters
+#' @description Function computes confidence intervals for the parameters counted by \code{OEFPIL} function.
 #' @usage ## S3 method for class 'OEFPIL'
 #'    confint(object, signif.level = output.form$contents$signif.level)
 #'
-#' @param object object of class 'OEFPIL'.
+#' @param object an object of class \code{"OEFPIL"}.
 #'
-#' @param signif.level numerical value or vector of significance levels for confidence intervals.
+#' @param signif.level a numerical value or a vector of significance levels for confidence intervals. If missing, a value from the input \code{"OEFPIL"} object is used.
 #'
-#' @details We can add one numerical value or vector of numerical values of significance levels for confidence intervals. The default case for parameter \code{signif.level} is value from \code{OEFPIL} object.
+#' @details The confidence intervals are computing under normality assumption.
 #'
-#' @return Matrix of estimated confidence intervals for model coefficients from on object \code{OEFPIL}
+#' @return A matrix of estimated confidence intervals for model coefficients from an \code{"OEFPIL"} object. The matrix contains lower and upper confidence limits (columns) for each parameter (rows).
 #'
 #' @seealso \code{\link{OEFPIL}}
 #'
@@ -24,7 +24,7 @@
 #' confint(st1)
 #'
 #' #vector of numerical values
-#' confint(st1,signif.level = c(0.01,0.05,0.1))
+#' confint(st1, signif.level = c(0.01,0.05,0.1))
 #'
 #' @export
 
