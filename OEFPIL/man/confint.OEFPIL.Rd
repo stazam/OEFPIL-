@@ -8,9 +8,9 @@
    confint(object, signif.level = output.form$contents$signif.level)
 }
 \arguments{
-\item{signif.level}{a numerical value or a vector of significance levels for confidence intervals. If missing, a value from the input \code{OEFPIL} object is used.}
+\item{signif.level}{a numerical value or a vector of significance levels for confidence intervals. If missing, a value from the input \code{"OEFPIL"} object is used.}
 
-\item{object}{an object of class 'OEFPIL'.}
+\item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
 }
 \value{
 A matrix of estimated confidence intervals for model coefficients from an \code{"OEFPIL"} object. The matrix contains lower and upper confidence limits (columns) for each parameter (rows).

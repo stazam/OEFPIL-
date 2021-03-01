@@ -1,12 +1,12 @@
 #' @name paramplot.OEFPIL
-#' @title Graph of estimated values of the parameters from OEFPIL with ggplot
-#' @description Function for plotting the estimated values of the parameters with error bars (plus minus standard deviation) using \code{ggplot} for class 'OEFPIL'.
+#' @title Plot parameters of an OEFPIL object
+#' @description Function for plotting the estimated values of the parameters with error bars (plus minus standard deviation) using \code{ggplot} for an object (or list of objects) of class \code{"OEFPIL"}.
 #'
 #' @usage paramplot.OEFPIL(object)
 #'
-#' @param object an object or a \code{list} of objects of class 'OEFPIL' (a result of a call to \code{\link{OEFPIL}})
+#' @param object an object or a \code{list} of objects of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).
 #'
-#' @details The input list has to be without \code{NaN}, \code{NA}, \code{Inf} or \code{-Inf} values in the estimated parameters or covariance matrix in the source object of class 'OEFPIL'. In that case the function returns a warning message and no graph is plotted (see Example 3).
+#' @details The input list has to be without \code{NaN}, \code{NA}, \code{Inf} or \code{-Inf} values in the estimated parameters or covariance matrix in the source \code{"OEFPIL"} object. In that case the function returns a warning message and no graph is plotted (see Example 3).
 #'
 #' @note Due to possible large differences in units of estimated parameters, the \code{scale} argument for facetting in the \code{ggplot} graph is set to \code{"free"}. It should be taken into account when interpreting the results.
 #'

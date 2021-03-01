@@ -4,7 +4,7 @@
 #' @usage ## S3 method for class 'OEFPIL'
 #'    confint(object, signif.level = output.form$contents$signif.level)
 #'
-#' @param object an object of class \code{"OEFPIL"}.
+#' @param object an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).
 #'
 #' @param signif.level a numerical value or a vector of significance levels for confidence intervals. If missing, a value from the input \code{"OEFPIL"} object is used.
 #'

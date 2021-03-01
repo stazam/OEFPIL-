@@ -1,12 +1,12 @@
 #' @name coef.OEFPIL
-#' @title Extract model coefficients from an 'OEFPIL' object
-#' @description Function which extracts the estimated model coefficients from an object of class 'OEFPIL'.
+#' @title Extract model coefficients from OEFPIL
+#' @description Function which extracts the estimated model coefficients from an object of class \code{"OEFPIL"}.
 #' @usage ## S3 method for class 'OEFPIL'
 #'    coef(object)
 #'
-#' @param object an object of class 'OEFPIL' (a result of a call to \code{OEFPIL})
+#' @param object an object of class \code{"OEFPIL"} (a result of a call to \code{OEFPIL}).
 #'
-#' @return A named vector of estimated model coefficients extracted from an 'OEFPIL' object.
+#' @return A named vector of estimated model coefficients extracted from an \code{"OEFPIL"} object.
 #'
 #' @seealso \code{\link{OEFPIL}}
 #'

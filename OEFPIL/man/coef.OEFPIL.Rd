@@ -2,19 +2,19 @@
 % Please edit documentation in R/coef.OEFPIL.R
 \name{coef.OEFPIL}
 \alias{coef.OEFPIL}
-\title{Extract model coefficients from an 'OEFPIL' object}
+\title{Extract model coefficients from OEFPIL}
 \usage{
 ## S3 method for class 'OEFPIL'
    coef(object)
 }
 \arguments{
-\item{object}{an object of class 'OEFPIL' (a result of a call to \code{OEFPIL})}
+\item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{OEFPIL}).}
 }
 \value{
-A named vector of estimated model coefficients extracted from an 'OEFPIL' object.
+A named vector of estimated model coefficients extracted from an \code{"OEFPIL"} object.
 }
 \description{
-Function which extracts the estimated model coefficients from an object of class 'OEFPIL'.
+Function which extracts the estimated model coefficients from an object of class \code{"OEFPIL"}.
 }
 \examples{
 
