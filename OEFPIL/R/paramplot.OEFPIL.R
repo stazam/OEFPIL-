@@ -8,6 +8,8 @@
 #'
 #' @details The input list has to be without \code{NaN}, \code{NA}, \code{Inf} or \code{-Inf} values in the estimated parameters or covariance matrix in the source \code{"OEFPIL"} object. In that case the function returns a warning message and no graph is plotted (see Example 3).
 #'
+#' @return a ggplot graph of the estimated parameter values with error bars. The result can be edit using other ggplot components as usually.
+#'
 #' @note Due to possible large differences in units of estimated parameters, the \code{scale} argument for facetting in the \code{ggplot} graph is set to \code{"free"}. It should be taken into account when interpreting the results.
 #'
 #' @seealso \code{\link{OEFPIL}}, \code{\link{curvplot.OEFPIL}} and \code{\link{plot.OEFPIL}}.

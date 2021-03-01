@@ -1,17 +1,16 @@
 #' @name curvplot.OEFPIL
-#' @title Ggplot function of estimated curve of object of class 'OEFPIL'
-#' @description Function for plotting estimated curve with pointwise confidence bands for 'OEFPIL' object.
+#' @title Plot of estimated curve for OEFPIL object
+#' @description Function for plotting the estimated curve with pointwise confidence bands for an object of class \code{"OEFPIL"}.
 #'
 #' @usage curvplot.OEFPIL(object, signif.level, xx)
 #'
-#' @param object object of class 'OEFPIL'
-#' @param signif.level numeric value or vector of significance levels for confidence interval
-#' @param print print out result summaries in the console (default \code{TRUE})
+#' @param object an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).
+#' @param signif.level a numeric value or a vector of significance levels for pointwise confidence bands. If missing, the estimated curve is plotted without confidence bands.
+#' @param xx a sequence of x-coordinates of points for computing and plotting confidence bands. If missing, the default sequence \code{seq(from = min(x), to = max(x), length.out = 301)} is used.
 #'
-#' @details If the \code{signif.level} parameter is missing, the estimated curve will be plotted without confidence bands.
-#'          The rest of parameters can be added similarly as in ggplot.
+#' @return a ggplot graph of the estimated curve with pointwise confidence bands. The result can be edit using other ggplot components as usually.
 #'
-#' @seealso \code{\link{OEFPIL}}, \code{\link{paramplot.OEFPIL}} and code{\link{plot.OEFPIL}}.
+#' @seealso \code{\link{OEFPIL}}, \code{\link{paramplot.OEFPIL}} and \code{\link{plot.OEFPIL}}.
 #'
 #' @import ggplot2
 #' @examples
@@ -31,10 +30,10 @@
 #' st2 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), list(b1 = 5, b2 = 8, b3 = 200),
 #'              CM2, useNLS = F)
 #'
-#' ##Use of curvplot.OEFPIL function on object of class 'OEFPIL'
+#' ##Use of curvplot.OEFPIL function on an object of class 'OEFPIL'
 #' curvplot.OEFPIL(st1, signif.level = 0.05)
 #'
-#' ##Use of curvplot.OEFPIL function on object of class 'OEFPIL' with different arguments
+#' ##Use of curvplot.OEFPIL function on an object of class 'OEFPIL' with different arguments
 #' curvplot.OEFPIL(st2, signif.level = c(0.01,0.05), xx = seq(0,110,1))
 #'
 #' ##Use of curvplot.OEFPIL function with additional arguments as for ggplot2
@@ -109,7 +108,7 @@ curvplot.OEFPIL <- function(output.form, signif.level, xx){
     ## graph of estimated curve with pointwise confidence bands
     ggplot(data) +
       geom_point(aes(x,y),pch = 1, cex = 2) +
-      labs(y = dep.var.name, x = idp.var.name) +
+      labs(y = dep.var.name, x = idp.var.name, title = "Estimation of a curve by Iterated Linearization") +
       geom_polygon(data = dataxx, aes(x = x, y = int, fill = signif.level),
                    alpha = 0.3) +
       geom_line(data = dataxx, aes(x,y), colour = "blue", size = 1) +
