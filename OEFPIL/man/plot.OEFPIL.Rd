@@ -28,6 +28,7 @@ Plot of the iterated linearization estimate of a function from an \code{"OEFPIL"
 }
 \details{
 If the \code{signif.level} argument is missing, the value is set to 0.05, but the confidence bands are not plotted.
+         The confidence bands are computing under normality assumption.
 }
 \examples{
 \dontshow{

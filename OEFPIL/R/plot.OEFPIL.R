@@ -10,6 +10,7 @@
 #' @param ... additional arguments (same as in \link{plot} function) affecting the plot.
 #'
 #' @details If the \code{signif.level} argument is missing, the value is set to 0.05, but the confidence bands are not plotted.
+#'          The confidence bands are computing under normality assumption.
 #'
 #'@return Returns an object of type list containing at least the following components
 #'  \itemize{ \item \code{xx} a numerical vector of points where bands are calculated.
