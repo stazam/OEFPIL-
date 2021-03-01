@@ -1,10 +1,12 @@
 #' @name vcov.OEFPIL
-#' @title Extract covariance matrix from an object of class 'OEFPIL'
-#' @description Function for extracting the estimated covariance matrix from 'OEFPIL' object.
+#' @title Covariance matrix from an OEFPIL object
+#' @description Function for extracting the estimated covariance matrix from an object of class \code{"OEFPIL"}.
 #' @usage ## S3 method for class 'OEFPIL'
 #'    vcov(object)
 #'
-#' @param object object of class 'OEFPIL'
+#' @param object an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).
+#'
+#' @return A matrix of the estimated covariances between the parameter estimates from an \code{"OEFPIL"} object.
 #'
 #' @seealso \code{\link{OEFPIL}}
 #'
