@@ -111,9 +111,8 @@
 #' @export
 
 
-
-OEFPIL <- function(data, form, start.val, CM = diag(dim(data)[1] * 2),  max.iter = 100,
-                   see.iter.val = F, save.file.name, th = .Machine$double.eps ^ (2 / 3),
+OEFPIL <- function(data, form, start.val, CM,  max.iter = 100, see.iter.val = F,
+                   save.file.name, th = .Machine$double.eps ^ (2 / 3),
                    signif.level = 0.05, useNLS = T) {
   ##   Optimum Estimate of Function Parameters by Iterated Linearization.
   ## Users will enter initial formula and list of starting values of all parameters from
@@ -153,24 +152,6 @@ OEFPIL <- function(data, form, start.val, CM = diag(dim(data)[1] * 2),  max.iter
   }
   ## stopifnot( ncol(data) == 2 ) # Another variant of program stoppage
 
-  if (IsListOK(data) == F) {
-
-    n <- dim(data)[1]
-    odr <- sort(unique(c(which(is.infinite(data[, 1])),
-                         which(is.na(data[, 1])),
-                         which(is.infinite(data[, 2])),
-                         which(is.na(data[, 2])))))
-
-    data <- data[ - odr,]
-    CM <- CM[ - c(odr, odr + n), - c(odr, odr + n)]
-
-    logg <- paste("The data rows ", paste(odr, collapse = ", "),
-                  " contained NaN, NA, Inf or -Inf values.", "\n",
-                  "These rows were removed and given covariance matrix was upgraded accordingly.", "\n", sep = "")
-    message(logg) ## display error massage in console
-    logs <- paste(na.omit(logs), logg, sep = "//")
-  }
-
   if (length(colnames(data)) != 2 | sum(is.na(colnames(data))) != 0) {
     stop("Both columns of the data have to be named!")
   }
@@ -180,17 +161,6 @@ OEFPIL <- function(data, form, start.val, CM = diag(dim(data)[1] * 2),  max.iter
     stop("There has to be a formula as an input value.")
   }
   ## Control of formula correction
-
-  if ( !(is.matrix(CM)) | !(all(dim(CM) == c(dim(data)[1] * 2, dim(data)[1] * 2))) | !is.positive.semi.definite(CM)) {
-
-    logg <- paste("'CM' has to be a covariance matrix.", "\n",
-                  "dim(CM) = c(dim(data)[1] * 2, dim(data)[1] * 2)", sep="")
-
-    stop(logg)
-  }
-  ## Control of input of covariance matrix
-
-  ## is.positive.semi.definite(CM) # We haven't checked that.
 
   if (th < .Machine$double.eps ^ (2 / 3)) {
     th <- .Machine$double.eps ^ (2 / 3)
@@ -260,6 +230,57 @@ OEFPIL <- function(data, form, start.val, CM = diag(dim(data)[1] * 2),  max.iter
   ## Control the presence of name of independant variable on the right hand side of formula.
 
   x <- data[,col.idp.var]
+
+  if (missing(CM)) {
+
+    CM <- diag(c(rep(var(x), length(x)), rep(var(y), length(y))))
+    ## If the user does not define covariance matrix, we will use this one
+
+    logg <- paste("A covariance matrix of the data was not given. Therefore a diagonal", "\n",
+                  "covariance matrix with sample variance on the main diagonal is used.", "\n", sep = "")
+    message(logg)
+    logs <- paste(na.omit(logs), logg, sep = "//")
+
+  } else if (is.matrix(CM)) {
+
+    if (all(dim(CM) == rep(dim(data)[1] * 2, 2))) {
+
+      if (!(is.positive.semi.definite(CM))) {
+        logg <- paste("'CM' has to be a covariance matrix.", "\n",
+                      "Given 'CM' has to be positive semidefinite.", sep="")
+        stop(logg)
+      }
+
+    } else {
+      logg <- paste("'CM' has to be a covariance matrix.", "\n",
+                    "Given 'CM' has to be a square matrix.", sep="")
+      stop(logg)
+    }
+
+  } else {
+    logg <- paste("'CM' has to be a covariance matrix.", "\n",
+                  "Given'CM' is not a matrix.", sep="")
+    stop(logg)
+  }
+  ## Control of input of covariance matrix
+
+  if (IsListOK(data) == F) {
+
+    n <- dim(data)[1]
+    odr <- sort(unique(c(which(is.infinite(data[, 1])),
+                         which(is.na(data[, 1])),
+                         which(is.infinite(data[, 2])),
+                         which(is.na(data[, 2])))))
+
+    data <- data[ - odr,]
+    CM <- CM[ - c(odr, odr + n), - c(odr, odr + n)]
+
+    logg <- paste("The data rows ", paste(odr, collapse = ", "),
+                  " contained NaN, NA, Inf or -Inf values.", "\n",
+                  "These rows were removed and given covariance matrix was upgraded accordingly.", "\n", sep = "")
+    message(logg) ## display error massage in console
+    logs <- paste(na.omit(logs), logg, sep = "//")
+  }
 
   if (which(orig.vars == idp.var.name) != 2) {
     idp.var.order <- which(orig.vars == idp.var.name)
@@ -411,7 +432,6 @@ OEFPIL <- function(data, form, start.val, CM = diag(dim(data)[1] * 2),  max.iter
 
   return(lst.output)
 }
-
 ################################################################################
 
 OEFPILIter <- function(y0, x0, L, CM, max.iter = 100, see.iter.val = F,
