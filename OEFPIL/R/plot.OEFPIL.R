@@ -1,20 +1,20 @@
 #' @name plot.OEFPIL
-#' @title Plot of the iterated linearization estimate from an OEPFIL object
-#' @description Plot of the iterated linearization estimate from an OEPFIL object.
+#' @title Plot the estimate from an OEPFIL object
+#' @description Plot of the iterated linearization estimate of a function from an \code{"OEFPIL"} object with pointwise confidence bands.
 #' @usage ## S3 method for class 'OEFPIL'
 #'     plot(object, xx, signif.level,...)
 #'
-#' @param object object of class 'OEFPIL'
-#' @param xx numerical vector of points, where confidence bands will be calculated and plotted.
-#' @param signif.level numerical value or vector of significance levels for confidence intervals.
-#' @param ... additional arguments (same as \link{plot} function) affecting the plot.
+#' @param object an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).
+#' @param xx  a sequence of x-coordinates of points for computing and plotting confidence bands. If missing, the default sequence \code{seq(from = min(x), to = max(x), length.out = 301)} is used.
+#' @param signif.level a numerical value or a vector of significance levels for confidence bands.
+#' @param ... additional arguments (same as in \link{plot} function) affecting the plot.
 #'
-#' @details If the signif.level parameter is missing, we do not plot any confidence bands, although the values will be set to 0.05.
+#' @details If the \code{signif.level} argument is missing, the value is set to 0.05, but the confidence bands are not plotted.
 #'
 #'@return Returns an object of type list containing at least the following components
-#'  \itemize{ \item  \code{xx} points where bands are calculated.
-#'            \item \code{yy} values of estimated function.
-#'            \item \code{PointwiseCB} matrix of pointwise confidence bands at points \code{xx}.
+#'  \itemize{ \item \code{xx} a numerical vector of points where bands are calculated.
+#'            \item \code{yy} a numerical vector with values of estimated function in \code{xx}.
+#'            \item \code{PointwiseCB} a matrix of pointwise confidence bands at points \code{xx}.
 #'            }
 #'
 #' @seealso \code{\link{OEFPIL}}
@@ -24,7 +24,7 @@
 #' utils::example("coef.OEFPIL",echo=FALSE)}
 #' ##-- Continuing the coef.OEFPIL(.) example:
 #'
-#' ##Use of plot function with default parameters, signif.level is not set up...No confidence bands
+#' ##Use of plot function with default parameters, signif.level is not set up...No confidence bands are plotted
 #' plot(st1)
 #'
 #' ##Use of plot function with different parameters

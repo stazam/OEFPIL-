@@ -2,39 +2,39 @@
 % Please edit documentation in R/plot.OEFPIL.R
 \name{plot.OEFPIL}
 \alias{plot.OEFPIL}
-\title{Plot of the iterated linearization estimate from an OEPFIL object}
+\title{Plot the estimate from an OEPFIL object}
 \usage{
 ## S3 method for class 'OEFPIL'
     plot(object, xx, signif.level,...)
 }
 \arguments{
-\item{xx}{numerical vector of points, where confidence bands will be calculated and plotted.}
+\item{xx}{a sequence of x-coordinates of points for computing and plotting confidence bands. If missing, the default sequence \code{seq(from = min(x), to = max(x), length.out = 301)} is used.}
 
-\item{signif.level}{numerical value or vector of significance levels for confidence intervals.}
+\item{signif.level}{a numerical value or a vector of significance levels for confidence bands.}
 
-\item{...}{additional arguments (same as \link{plot} function) affecting the plot.}
+\item{...}{additional arguments (same as in \link{plot} function) affecting the plot.}
 
-\item{object}{object of class 'OEFPIL'}
+\item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
 }
 \value{
 Returns an object of type list containing at least the following components
- \itemize{ \item  \code{xx} points where bands are calculated.
-           \item \code{yy} values of estimated function.
-           \item \code{PointwiseCB} matrix of pointwise confidence bands at points \code{xx}.
+ \itemize{ \item \code{xx} a numerical vector of points where bands are calculated.
+           \item \code{yy} a numerical vector with values of estimated function in \code{xx}.
+           \item \code{PointwiseCB} a matrix of pointwise confidence bands at points \code{xx}.
            }
 }
 \description{
-Plot of the iterated linearization estimate from an OEPFIL object.
+Plot of the iterated linearization estimate of a function from an \code{"OEFPIL"} object with pointwise confidence bands.
 }
 \details{
-If the signif.level parameter is missing, we do not plot any confidence bands, although the values will be set to 0.05.
+If the \code{signif.level} argument is missing, the value is set to 0.05, but the confidence bands are not plotted.
 }
 \examples{
 \dontshow{
 utils::example("coef.OEFPIL",echo=FALSE)}
 ##-- Continuing the coef.OEFPIL(.) example:
 
-##Use of plot function with default parameters, signif.level is not set up...No confidence bands
+##Use of plot function with default parameters, signif.level is not set up...No confidence bands are plotted
 plot(st1)
 
 ##Use of plot function with different parameters
