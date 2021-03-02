@@ -8,7 +8,6 @@
 #' @param xx  a sequence of x-coordinates of points for computing and plotting confidence bands. If missing, the default sequence \code{seq(from = min(x), to = max(x), length.out = 301)} is used.
 #' @param signif.level a numerical value or a vector of significance levels for confidence bands.
 #' @param ... additional arguments (same as in \link{plot} function) affecting the plot.
-#'
 #' @details If the \code{signif.level} argument is missing, the value is set to 0.05, but the confidence bands are not plotted.
 #'          The confidence bands are computing under normality assumption.
 #'
