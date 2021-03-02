@@ -2,23 +2,22 @@
 % Please edit documentation in R/curvplot.OEFPIL.R
 \name{curvplot.OEFPIL}
 \alias{curvplot.OEFPIL}
-\title{Ggplot function of estimated curve of object of class 'OEFPIL'}
+\title{Plot of estimated curve for OEFPIL object}
 \usage{
 curvplot.OEFPIL(object, signif.level, xx)
 }
 \arguments{
-\item{signif.level}{numeric value or vector of significance levels for confidence interval}
+\item{signif.level}{a numeric value or a vector of significance levels for pointwise confidence bands. If missing, the estimated curve is plotted without confidence bands.}
 
-\item{object}{object of class 'OEFPIL'}
+\item{xx}{a sequence of x-coordinates of points for computing and plotting confidence bands. If missing, the default sequence \code{seq(from = min(x), to = max(x), length.out = 301)} is used.}
 
-\item{print}{print out result summaries in the console (default \code{TRUE})}
+\item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
+}
+\value{
+a ggplot graph of the estimated curve with pointwise confidence bands. The result can be edit using other ggplot components as usually.
 }
 \description{
-Function for plotting estimated curve with pointwise confidence bands for 'OEFPIL' object.
-}
-\details{
-If the \code{signif.level} parameter is missing, the estimated curve will be plotted without confidence bands.
-         The rest of parameters can be added similarly as in ggplot.
+Function for plotting the estimated curve with pointwise confidence bands for an object of class \code{"OEFPIL"}.
 }
 \examples{
 library(MASS)
@@ -37,10 +36,10 @@ st1 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), list(b1 = 5, b2 = 8, b3
 st2 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), list(b1 = 5, b2 = 8, b3 = 200),
              CM2, useNLS = F)
 
-##Use of curvplot.OEFPIL function on object of class 'OEFPIL'
+##Use of curvplot.OEFPIL function on an object of class 'OEFPIL'
 curvplot.OEFPIL(st1, signif.level = 0.05)
 
-##Use of curvplot.OEFPIL function on object of class 'OEFPIL' with different arguments
+##Use of curvplot.OEFPIL function on an object of class 'OEFPIL' with different arguments
 curvplot.OEFPIL(st2, signif.level = c(0.01,0.05), xx = seq(0,110,1))
 
 ##Use of curvplot.OEFPIL function with additional arguments as for ggplot2
@@ -48,5 +47,5 @@ curvplot.OEFPIL(st1, signif.level = 0.05) + labs(x = "New x label") + labs(title
 
 }
 \seealso{
-\code{\link{OEFPIL}}, \code{\link{paramplot.OEFPIL}} and code{\link{plot.OEFPIL}}.
+\code{\link{OEFPIL}}, \code{\link{paramplot.OEFPIL}} and \code{\link{plot.OEFPIL}}.
 }

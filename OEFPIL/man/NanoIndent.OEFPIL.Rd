@@ -2,69 +2,72 @@
 % Please edit documentation in R/NanoIndent.OEFPIL.R
 \name{NanoIndent.OEFPIL}
 \alias{NanoIndent.OEFPIL}
-\title{Calculation of pestimation of parameters of unloaded curve during Nanoindentation}
+\title{Estimation of parameters in nanoindentation}
 \usage{
 NanoIndent.OEFPIL(data, alpha.start, m.start, hp.start, unload.data = F,ucut = 0.98,
-                         lcut = 0.4, CM, uh = 0.5, uF = 0.001, max.iter = 100, see.iter.val = F,
+                         lcut = 0.2, CM, uh = 0.5, uF = 0.001, max.iter = 100, see.iter.val = F,
                          save.file.name, th = .Machine$double.eps ^ (2 / 3), signif.level = 0.05,
                          useNLS = T)
 }
 \arguments{
-\item{data}{Data file can be any object of type \code{data.frame} with 2 columns or \code{list} with 2 elements.}
+\item{data}{an object of type \code{data.frame} with 2 named columns or \code{list} with 2 elements.}
 
-\item{unload.data}{logical value (default FALSE ), which we set up to F in the case if we have both loaded and unloaded curve. In case of TRUE, we have only unloaded curve.}
+\item{alpha.start}{a starting value of the fitting constant alpha.}
 
-\item{ucut}{numerical value, indicating the upper bound of cut off.}
+\item{m.start}{a starting value of the exponent m.}
 
-\item{lcut}{numerical value, indicating the lower bound of cut off.}
+\item{hp.start}{a starting value of the permanent indentation depth hp.}
 
-\item{CM}{covariance matrix (does not change in iteration process).}
+\item{unload.data}{a logical value (default \code{FALSE}) indicating the structure of \code{data}. If \code{TRUE}, an input data contains only unloading part of the curve. If \code{FALSE}, an input data contains complete loading, hold and unloading parts of an indentation process.}
 
-\item{uh}{standard deviation of depth}
+\item{ucut}{a numerical value, indicating the upper bound of cut off.}
 
-\item{uF}{standard deviation of force}
+\item{lcut}{a numerical value, indicating the lower bound of cut off.}
 
-\item{max.iter}{maximum number of iterations}
+\item{CM}{a covariance matrix of the input \code{data}. See 'Details' for more information.}
 
-\item{see.iter.val}{logical value (default \code{TRUE}) indicating if we want to display and save partial results of algorithm.}
+\item{uh}{standard deviation of depth.}
 
-\item{save.file.name}{name of the file for saving results.}
+\item{uF}{standard deviation of load.}
 
-\item{th}{numerical value, indicating threshold necessary for estimation stoppage.}
+\item{max.iter}{maximum number of iterations.}
 
-\item{signif.level}{significance level for confidence interval}
+\item{see.iter.val}{logical. If \code{TRUE}, all the partial results of the OEFPIL algorithm are displayed and saved. The default value is \code{FALSE}.}
+
+\item{save.file.name}{a name of the file for saving results. If missing, no output file is saved.}
+
+\item{th}{a numerical value, indicating threshold necessary for the iteration stoppage.}
+
+\item{signif.level}{a significance level for the confidence interval.}
 
 \item{useNLS}{logical. If \code{TRUE} (the default value), function will set up starting parameters calculated by \code{\link{nlsLM}} function (nonlinear least square estimation).}
-
-\item{form}{an object of class \code{\link{formula}} (or one that can be coerced to that class): a symbolic description of the model to be fitted. The details of model specification are given under ‘Details’.}
-
-\item{name.start}{starting values of estimating parameters.}
 }
 \value{
-Returns an object of class \code{'OEPFIL'} is a list containing at least the following components
-\itemize{
-   \item name_est estimations of model parameters
-   \item name_upgraded.start.val estimations of model parameters
-   \item it_num number of iterations
-   \item CI_parameters list of confidence intervals for estimated parameters (significance level is based on parameter signif.level)
-   \item logs warnings or messages of events, which happen during the run of our function
-   \item \code{name_previous} values from the previous iterative step
-}
-In addition we get \code{contents}, which is list of outputs as original values and entered parameters, which are usable in other estimation process.
-If we set up parameter \code{useNLS} to TRUE, the start.values which enters in the estimation process will be claculated by \code{\link{nlsLM}} function. Otherwise the \code{start.values} and \code{name_upgraded.start.val} will be the same.
-In the case, if we add estimated parameters with NaN, NA, Inf or -Inf, we end up with error message.
+Returns an object of class \code{"OEFPIL"}. It is a list containing at least the following components
+
+\item{name_Est}{estimations of model parameters.}
+\item{name_upgraded.start.val}{modified starting values of estimating parameters (result from \code{\link{nlsLM}} function).}
+\item{cov.m_Est}{estimated covariance matrix of parameters.}
+\item{it_num}{number of iterations.}
+\item{CI_parameters}{a list of confidence intervals for estimated parameters (a significance level is based on \code{signif.level} argument).}
+\item{logs}{warnings or messages of events, which happen during the run of the algorithm.}
+\item{...}{for other components specification see \code{\link{OEFPIL}}.}
+
+\item{contents}{a list of outputs as original values of data and other characteristics, which are usable in plotting or other operations with model results.}
+
+If \code{useNLS} argument is set to \code{FALSE}, the \code{name_upgraded.start.val} are the same as \code{start.values} (no \code{nlsLM} procedure for starting value fitting is performed).
 }
 \description{
-Function calculates parameters of unloaded curve during nanoindentation by iterated linearization.
+Fitting the unloading curve in nanoindentation process by power law function with parameters estimated by iterated linearization algorithm (OEFPIL). The special case of \code{\link{OEFPIL}} function customized for using in nanoindentation (see 'Details').
 }
 \details{
-Function prepared data (clean and cut them off) for \code{\link{OEPFIL}}, for parameter estimation.
- Functional dependence of parameters is fixed in
-the form: \code{f = alpha * (h - hp) ^ m}, where \code{f} is strength and \code{h} depth
-(on the unloaded part of curve). User has an option to enter his own starting values of
+In this special case of the \code{OEFPIL} function, the dependence of parameters is fixed in
+the form: \eqn{F = \alpha * (h - h_p)^m}, where \code{F} is load and \code{h} depth measured within nanoindentation process. User has an option to enter his own starting values of
 parameters, or the values will be set up by algorithm.
+It is possible to set own starting values of the parameters, in the other case these values are calculated by algorithm as follows: \eqn{alpha.start = }
 
-In case, we do not add our own covariance matrix, it will be calculated by the algorithm with use of \code{u_h} and \code{u_f}.
+The \code{CM} has to be a \code{2n} covariance matrix (where \code{n} is length of \code{data}) of following structure: first \code{n} elements of the diagonal correspond to the variance of depth and other to the variance of load.
+If argument \code{CM} is missing, the input covariance matrix is set to a diagonal matrix with variance of depth and load (calculated from \code{uh} and \code{uF}) on the diagonal.
 }
 \examples{
 ## We use "uncut" data file: "silicaberk.txt" which is part of OEFPIL package

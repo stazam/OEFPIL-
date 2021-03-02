@@ -2,18 +2,24 @@
 % Please edit documentation in R/paramplot.OEFPIL.R
 \name{paramplot.OEFPIL}
 \alias{paramplot.OEFPIL}
-\title{Parameter estimation graph with ggplot of object of class 'OEFPIL'}
+\title{Plot parameters of an OEFPIL object}
 \usage{
 paramplot.OEFPIL(object)
 }
 \arguments{
-\item{object}{object or \code{list} of class 'OEFPIL'}
+\item{object}{an object or a \code{list} of objects of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
+}
+\value{
+a ggplot graph of the estimated parameter values with error bars. The result can be edit using other ggplot components as usually.
 }
 \description{
-Function for parameter estimation graph with error bars (plus minus standard deviation) with ggplot.
+Function for plotting the estimated values of the parameters with error bars (plus minus standard deviation) using \code{ggplot} for an object (or list of objects) of class \code{"OEFPIL"}.
 }
 \details{
-In the case, if we add estimated parameters with NaN, NA, Inf or -Inf, we get empty plot.
+The input list has to be without \code{NaN}, \code{NA}, \code{Inf} or \code{-Inf} values in the estimated parameters or covariance matrix in the source \code{"OEFPIL"} object. In that case the function returns a warning message and no graph is plotted (see Example 3).
+}
+\note{
+Due to possible large differences in units of estimated parameters, the \code{scale} argument for facetting in the \code{ggplot} graph is set to \code{"free"}. It should be taken into account when interpreting the results.
 }
 \examples{
 \dontshow{
@@ -24,19 +30,19 @@ CM2 <- diag(c(rep(0.2^2,n), rep(0.1^2,n)))
 st2 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), list(b1 = 5, b2 = 8, b3 = 200),
              CM2, useNLS = F)
 
-##Use of paramplot.OEFPIL function on object of class 'OEFPIL'
+##Example 1 - Use of paramplot.OEFPIL function on an object of class 'OEFPIL'
 paramplot.OEFPIL(st2)
 
-##Use of paramplot.OEFPIL function on list of object of class 'OEFPIL'
+##Example 2 - Use of paramplot.OEFPIL function on a list of objects of class 'OEFPIL'
 paramplot.OEFPIL(list(st1,st2))
 
-##Now we look at the case when we plot parameters with Nan values (OEPFIL function does not converge).
+##Example 3 - Use of paramplot.OEFPIL function on an object with NaN values (i. e. OEPFIL function does not converge)
 startsteam <- list(b1 = 0.1, b2 = 5, b3 = 200)
-st3 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), list(b1 = 0.1, b2 = 5, b3 = 200),
+st3 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam,
               CM1, useNLS = F)
 paramplot.OEFPIL(st3)
 
 }
 \seealso{
-\code{\link{OEFPIL}}, \code{\link{curvplot.OEFPIL}} and code{\link{plot.OEFPIL}}.
+\code{\link{OEFPIL}}, \code{\link{curvplot.OEFPIL}} and \code{\link{plot.OEFPIL}}.
 }

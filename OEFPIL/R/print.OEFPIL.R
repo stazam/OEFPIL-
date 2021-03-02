@@ -1,12 +1,11 @@
 #' @name print.OEFPIL
 #' @title Print function for an object of class 'OEFPIL'
-#' @description Function will print out the information about object of class 'OEFPIL'.
-#' @usage ## S3 method for class 'OEFPIL'
+#' @description Function prints the information about an object of class \code{"OEFPIL"}.
 #'    print(object)
 #'
-#' @param object object of class 'OEFPIL'.
+#' @param object an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).
 #'
-#' @details Function will print the formula and estimated parameters of model from an object \code{OEFPIL}.
+#' @details Function prints the formula and estimated parameters of the model from an \code{OEFPIL} object.
 #'
 #' @seealso \code{\link{OEFPIL}}
 #'

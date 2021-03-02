@@ -2,16 +2,19 @@
 % Please edit documentation in R/vcov.OEFPIL.R
 \name{vcov.OEFPIL}
 \alias{vcov.OEFPIL}
-\title{Extract covariance matrix from an object of class 'OEFPIL'}
+\title{Covariance matrix from an OEFPIL object}
 \usage{
 ## S3 method for class 'OEFPIL'
    vcov(object)
 }
 \arguments{
-\item{object}{object of class 'OEFPIL'}
+\item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
+}
+\value{
+A matrix of the estimated covariances between the parameter estimates from an \code{"OEFPIL"} object.
 }
 \description{
-Function for extracting the estimated covariance matrix from 'OEFPIL' object.
+Function for extracting the estimated covariance matrix from an object of class \code{"OEFPIL"}.
 }
 \examples{
 \dontshow{

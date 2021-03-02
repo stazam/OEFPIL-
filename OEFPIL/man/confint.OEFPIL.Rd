@@ -2,24 +2,24 @@
 % Please edit documentation in R/confint.OEFPIL.R
 \name{confint.OEFPIL}
 \alias{confint.OEFPIL}
-\title{Calculate confidence intervals for an object of class 'OEFPIL'}
+\title{Confidence intervals for OEFPIL parameters}
 \usage{
 ## S3 method for class 'OEFPIL'
    confint(object, signif.level = output.form$contents$signif.level)
 }
 \arguments{
-\item{signif.level}{numerical value or vector of significance levels for confidence intervals.}
+\item{signif.level}{a numerical value or a vector of significance levels for confidence intervals. If missing, a value from the input \code{"OEFPIL"} object is used.}
 
-\item{object}{object of class 'OEFPIL'.}
+\item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
 }
 \value{
-Matrix of estimated confidence intervals for model coefficients from on object \code{OEFPIL}
+A matrix of estimated confidence intervals for model coefficients from an \code{"OEFPIL"} object. The matrix contains lower and upper confidence limits (columns) for each parameter (rows).
 }
 \description{
-Function calculate confidence intervals for parameters counted by OEFPIL function.
+Function computes confidence intervals for the parameters counted by \code{OEFPIL} function.
 }
 \details{
-We can add one numerical value or vector of numerical values of significance levels for confidence intervals. The default case for parameter \code{signif.level} is value from \code{OEFPIL} object.
+The confidence intervals are computing under normality assumption.
 }
 \examples{
 \dontshow{
@@ -31,7 +31,7 @@ utils::example("coef.OEFPIL",echo=FALSE)}
 confint(st1)
 
 #vector of numerical values
-confint(st1,signif.level = c(0.01,0.05,0.1))
+confint(st1, signif.level = c(0.01,0.05,0.1))
 
 }
 \seealso{

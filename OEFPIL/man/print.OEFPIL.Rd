@@ -4,17 +4,17 @@
 \alias{print.OEFPIL}
 \title{Print function for an object of class 'OEFPIL'}
 \usage{
-## S3 method for class 'OEFPIL'
-   print(object)
+\method{print}{OEFPIL}(output.form)
 }
 \arguments{
-\item{object}{object of class 'OEFPIL'.}
+\item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
 }
 \description{
-Function will print out the information about object of class 'OEFPIL'.
+Function prints the information about an object of class \code{"OEFPIL"}.
+   print(object)
 }
 \details{
-Function will print the formula and estimated parameters of model from an object \code{OEFPIL}.
+Function prints the formula and estimated parameters of the model from an \code{OEFPIL} object.
 }
 \examples{
 \dontshow{

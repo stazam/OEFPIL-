@@ -1,26 +1,26 @@
 #' @name coef.OEFPIL
-#' @title Extract model coefficients from an object of class 'OEFPIL'
-#' @description Function which extracts the estimated model coefficients from 'OEFPIL' object.
+#' @title Extract model coefficients from OEFPIL
+#' @description Function which extracts the estimated model coefficients from an object of class \code{"OEFPIL"}.
 #' @usage ## S3 method for class 'OEFPIL'
 #'    coef(object)
 #'
-#' @param object object of class 'OEFPIL'
+#' @param object an object of class \code{"OEFPIL"} (a result of a call to \code{OEFPIL}).
 #'
-#' @return Vector of estimated model coefficients from on object \code{OEFPIL}
+#' @return A named vector of estimated model coefficients extracted from an \code{"OEFPIL"} object.
 #'
 #' @seealso \code{\link{OEFPIL}}
 #'
 #' @examples
-#' library(MASS)
 #'
-#' ##Creating a data file
+#' ##Creating a data file (using steam data from MASS library)
+#' library(MASS)
 #' steamdata <- steam
 #' colnames(steamdata) <- c("x","y")
 #' startsteam <- list(b1 = 5, b2 = 8, b3 = 200)
 #' k <- nrow(steamdata)
 #' CM <- diag(rep(0.1,2*k))
 #'
-#' ##Creating OEFPIL object
+#' ##Creating an OEFPIL object
 #' st1 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam, CM, useNLS = F)
 #'
 #' ##Use of coef function

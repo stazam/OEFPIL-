@@ -1,21 +1,19 @@
 #' @name summary.OEFPIL
-#' @title Summary function from an object of class 'OEFPIL'
-#' @description Function for fast and clean output of all basic information of 'OEFPIL' object.
+#' @title Summary from an OEFPIL object
+#' @description Function for fast and clean output of all basic information of an \code{"OEFPIL"} object.
 #' @usage ## S3 method for class 'OEFPIL'
 #'    summary(object, signif.level = output.form$contents$signif.level, print = T)
 #'
-#' @param object object of class 'OEFPIL'
-#' @param signif.level significance level for confidence interval
+#' @param object an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).
+#' @param signif.level a significance level for the confidence interval. If missing, a value from the input \code{OEFPIL} object is used.
 #' @param print print out result summaries in the console (default \code{TRUE})
 #'
-#' @details The default case for parameter \code{signif.level} is value from \code{OEFPIL} object.
-#'
-#' @return Returns an object of type list containing at least the following components
-#'  \itemize{\item \code{param_Est} is the (numerical) vector of estimated model parameters
+#' @return Returns an object of type list containing following components
+#'  \itemize{\item \code{param_Est} the (numerical) vector of estimated model parameters.
 #'            \item  \code{sd} standard deviations for estimated model parameters.
-#'            \item \code{cov.m_Est} covariance matrix of estimated model parameters.
-#'            \item \code{it_num} number of iterations
-#'            \item \code{CI_parameters} matrix of lower and upper bounds for confidence intervals.
+#'            \item \code{cov.m_Est} the covariance matrix of estimated model parameters.
+#'            \item \code{it_num} number of iterations.
+#'            \item \code{CI_parameters} the matrix of lower and upper bounds for confidence intervals.
 #'            }
 #'
 #' @seealso \code{\link{OEFPIL}}
@@ -29,7 +27,7 @@
 #' summary(st1)
 #'
 #' ##Use of summary function with different parameters
-#' summary(st1, signif.level = 0.05, print = F)
+#' summary(st1, signif.level = 0.01, print = F)
 #'
 #' @export
 

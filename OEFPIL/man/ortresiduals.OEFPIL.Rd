@@ -2,37 +2,40 @@
 % Please edit documentation in R/ortresiduals.OEFPIL.R
 \name{ortresiduals.OEFPIL}
 \alias{ortresiduals.OEFPIL}
-\title{Calculation of orthogonal residuals from an object of class 'OEFPIL'}
+\title{Orthogonal residuals from an OEFPIL object}
 \usage{
-ortresiduals.OEFPIL(object, a)
+ortresiduals.OEFPIL(object, min.c)
 }
 \arguments{
-\item{a}{numeric value, for defining minimization interval for the \code{\link{optimize}} function (if not defined, default value 0.05 * range(x) is used). Must be positive}
+\item{min.c}{a numeric value, for defining minimization interval for the \code{\link{optimize}} function (if not defined, default value 0.05 * range(x) is used). Must be positive.}
 
-\item{object}{object of class 'OEFPIL'}
+\item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
 }
 \value{
-Returns an object of type list containing at least the following components
- \itemize{\item \code{x.ores} numerical vector of x coordinates of points, where the minimal distance is realized
-           \item  \code{o.resid} numerical vector of orthogonal residuals (minimal Euclidean distances between data points and estimated function)
-           \item \code{SSort} orthogonal sum of squares.
+Returns an object of type list containing following components
+ \itemize{\item \code{x.ores} a numerical vector of x coordinates of points, where the minimal distance is realized.
+           \item  \code{o.resid} a numerical vector of orthogonal residuals (minimal Euclidean distances between data points and estimated function).
+           \item \code{SSort} the orthogonal sum of squares.
            }
 }
 \description{
-Function for calculating orthogonal residuals of an 'OEFPIL' object.
+Function for calculating orthogonal residuals of an \code{"OEFPIL"} object (i.e. the shortest Euclidean distance between data points and the estimated function from OEFPIL).
+}
+\note{
+The value \code{min.c} should not be too small. In that case the minimization interval is too narrow and the result can be misleading (see Example 3).
 }
 \examples{
 \dontshow{
 utils::example("coef.OEFPIL",echo=FALSE)}
 ##-- Continuing the coef.OEFPIL(.) example:
 
-##Use ortresiduals.OEFPIL function on the OEFPIL object, with specified value 'a'
+##Example 1 Use ortresiduals.OEFPIL function on the OEFPIL object, with specified value 'min.c'
 ortresiduals.OEFPIL(st1,5)
 
-##Use ortresiduals.OEFPIL function without value 'a' (defaut.value = 0.05 * range(x))
+##Example 2 Use ortresiduals.OEFPIL function without value 'min.c' (defaut.value = 0.05 * range(x))
 ortresiduals.OEFPIL(st1)
 
-##Choice of too narrow interval. Result can be misleading!
+##Example 3 Choice of too narrow interval. Misleading result!
 ortresiduals.OEFPIL(st1,0.5)
 }
 \seealso{
