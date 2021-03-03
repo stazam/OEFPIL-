@@ -1,12 +1,12 @@
 #' @name OEFPIL
 #' @title Optimal Estimation of Parameters by Iterated Linearization
-#' @description Function for computing optimal estimate of function parameters by iterated linearization.
+#' @description Function for computing optimal estimate of parameters of a nonlinear function by iterated linearization (using Taylor expansion). The model considers measurements errors in both (dependent and independent) variables.
 #' @usage OEFPIL(data, form, start.val, CM, max.iter = 100, see.iter.val = F,
 #'        save.file.name, th, signif.level, useNLS = T)
 #'
 #' @param data a data file can be any object of type \code{data.frame} with 2 named columns or \code{list} with 2 elements.
 #' @param form an object of class \code{\link{formula}} (or one that can be coerced to that class): a symbolic description of the model to be fitted. The details of model specification are given under ‘Details’.
-#' @param start.val starting values of estimating parameters.
+#' @param start.val a named list of starting values of estimating parameters.
 #' @param CM a covariance matrix of \code{data} (See 'Details' for the information about required structure.).
 #' @param max.iter maximum number of iterations.
 #' @param see.iter.val logical. If \code{TRUE}, all the partial results of the algorithm are displayed and saved. The default value is \code{FALSE}.
@@ -18,11 +18,18 @@
 #' @details Models for OEPFIL function are specified symbolically. A typical model has the form \code{y ~ f(x, a_1,...,a_n)}, where
 #'
 #'  \itemize{\item \code{y} is the (numerical) response vector
-#'            \item  \code{x} is a vector which specifies non-linear predictor  for \code{y}
-#'            \item terms \code{a_1,...,a_n} are parameters of specified model. Function \code{f} must have continuous second partial derivatives with respect to \code{x} and parameters \code{a_1,...a_n}.}
+#'            \item \code{x} is the predictor
+#'            \item terms \code{a_1,...,a_n} are parameters of specified model.}
+#'  Function \code{f} is known nonlinear function with continuous second partial derivatives with respect to \code{x} and parameters \code{a_1,...a_n} (for more details see \emph{Kubáček}).
 #'
-#'     In the \code{data} entry of type \code{data.frame}, both columns must be named as variables in formula. The same holds for elements of \code{list}.
+#'  All calculations are performed assuming normality of a response vector and measurements errors.
 #'
+#'  In the \code{data} entry of type \code{data.frame}, both columns must be named as variables in formula. The same holds for elements of \code{list}.
+#'
+#' A choice of \code{start.val} is important for the convergence of the algorithm. If the \code{OEFPIL} algorithm does not converge, starting values modified by \code{nlsLM} function (\code{useNLS = TRUE}) are recommended (see Example 3).
+#'
+#' The \code{CM} has to be a \code{2n} covariance matrix (where \code{n} is length of \code{data}) of following structure: first \code{n} elements of the diagonal correspond to the variance of independent variable (x) and other to the variance of dependent variable (y).
+#' If argument \code{CM} is missing, the input covariance matrix is set to a diagonal variance matrix with sample variance on the main diagonal.
 #'
 #' @return Returns an object of class \code{"OEFPIL"}. It is a list containing the following components
 #' \item{name_Est}{estimations of model parameters.}
