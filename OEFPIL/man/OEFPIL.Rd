@@ -2,29 +2,29 @@
 % Please edit documentation in R/OEFPIL.R
 \name{OEFPIL}
 \alias{OEFPIL}
-\title{Estimation of Parameters by Iterated Linearization}
+\title{Optimal Estimation of Parameters by Iterated Linearization}
 \usage{
-OEFPIL(data, form, start.val, CM = diag(dim(data)[1] * 2),  max.iter = 100,
-    see.iter.val = F, save.file.name, th = 0.001, signif.level = 0.05, useNLS = T)
+OEFPIL(data, form, start.val, CM, max.iter = 100, see.iter.val = F,
+       save.file.name, th, signif.level, useNLS = T)
 }
 \arguments{
-\item{data}{Data file can be any object of type \code{data.frame} with 2 columns or \code{list} with 2 elements.}
+\item{data}{a data file can be any object of type \code{data.frame} with 2 named columns or \code{list} with 2 elements.}
 
 \item{form}{an object of class \code{\link{formula}} (or one that can be coerced to that class): a symbolic description of the model to be fitted. The details of model specification are given under ‘Details’.}
 
 \item{start.val}{starting values of estimating parameters.}
 
-\item{CM}{covariance matrix (does not change in iteration process).}
+\item{CM}{a covariance matrix of \code{data} (See 'Details' for the information about required structure.).}
 
-\item{max.iter}{maximum number of iterations}
+\item{max.iter}{maximum number of iterations.}
 
-\item{see.iter.val}{logical value (default \code{FALSE}) indicating if we want to display and save partial results of algorithm.}
+\item{see.iter.val}{logical. If \code{TRUE}, all the partial results of the algorithm are displayed and saved. The default value is \code{FALSE}.}
 
-\item{save.file.name}{name of the file for saving results.}
+\item{save.file.name}{a name of the file for saving results. If missing, no output file is saved.}
 
-\item{th}{numerical value, indicating threshold necessary for estimation stoppage.}
+\item{th}{a numerical value, indicating threshold necessary for the iteration stoppage.}
 
-\item{signif.level}{significance level for confidence interval.}
+\item{signif.level}{a significance level for the confidence interval.}
 
 \item{useNLS}{logical. If \code{TRUE} (the default value), function will set up starting parameters calculated by \code{\link{nlsLM}} function (nonlinear least square estimation).}
 }

@@ -1,18 +1,18 @@
 #' @name OEFPIL
-#' @title Estimation of Parameters by Iterated Linearization
+#' @title Optimal Estimation of Parameters by Iterated Linearization
 #' @description Function for computing optimal estimate of function parameters by iterated linearization.
-#' @usage OEFPIL(data, form, start.val, CM = diag(dim(data)[1] * 2),  max.iter = 100,
-#'     see.iter.val = F, save.file.name, th = 0.001, signif.level = 0.05, useNLS = T)
+#' @usage OEFPIL(data, form, start.val, CM, max.iter = 100, see.iter.val = F,
+#'        save.file.name, th, signif.level, useNLS = T)
 #'
-#' @param data Data file can be any object of type \code{data.frame} with 2 columns or \code{list} with 2 elements.
+#' @param data a data file can be any object of type \code{data.frame} with 2 named columns or \code{list} with 2 elements.
 #' @param form an object of class \code{\link{formula}} (or one that can be coerced to that class): a symbolic description of the model to be fitted. The details of model specification are given under ‘Details’.
 #' @param start.val starting values of estimating parameters.
-#' @param CM covariance matrix (does not change in iteration process).
-#' @param max.iter maximum number of iterations
-#' @param see.iter.val logical value (default \code{FALSE}) indicating if we want to display and save partial results of algorithm.
-#' @param save.file.name name of the file for saving results.
-#' @param th numerical value, indicating threshold necessary for estimation stoppage.
-#' @param signif.level significance level for confidence interval.
+#' @param CM a covariance matrix of \code{data} (See 'Details' for the information about required structure.).
+#' @param max.iter maximum number of iterations.
+#' @param see.iter.val logical. If \code{TRUE}, all the partial results of the algorithm are displayed and saved. The default value is \code{FALSE}.
+#' @param save.file.name a name of the file for saving results. If missing, no output file is saved.
+#' @param th a numerical value, indicating threshold necessary for the iteration stoppage.
+#' @param signif.level a significance level for the confidence interval.
 #' @param useNLS logical. If \code{TRUE} (the default value), function will set up starting parameters calculated by \code{\link{nlsLM}} function (nonlinear least square estimation).
 #'
 #' @details Models for OEPFIL function are specified symbolically. A typical model has the form \code{y ~ f(x, a_1,...,a_n)}, where
@@ -436,17 +436,17 @@ OEFPIL <- function(data, form, start.val, CM,  max.iter = 100, see.iter.val = F,
 
 OEFPILIter <- function(y0, x0, L, CM, max.iter = 100, see.iter.val = F,
                        save.file.name, th, LOF,  logs = NA) {
-  ##   Iteration for the calculation of parametr estimation in generalised version of algorythm
-  ## y0             . . . entry vector y (mesasure of strength)
-  ## x0             . . . entry vector x (measure of depth)
-  ## L              . . . list of original parameters estimations
+  ##   Iteration for the calculation of parameter estimation in generalised version of algorythm
+  ## y0             . . . entry vector y
+  ## x0             . . . entry vector x
+  ## L              . . . list of starting values of parameters
   ## CM             . . . covariance matrix -  this part does not change in the process of
-  ##                      algorythm
+  ##                      algorithm
   ## max.iter       . . . maximum number of iterations of the algorithm (default = 100)
   ## see.iter.val   . . . T, if we want to continuously save and output results from the process of algorithm
   ## save.file.name . . . name of file, where user want to save iterations of algorithm in, if none
   ##                      is given, nothing is going to save; recommended format is .Rdata
-  ## th             . . . treshold necessary for iteration's stoppage
+  ## th             . . . threshold necessary for iteration's stoppage
   ## LOF            . . . entry list of user's defined functions
   ## logs           . . . string containing the messages and warnings about the whole
   ##                      process of function
@@ -545,6 +545,7 @@ OEFPILIter <- function(y0, x0, L, CM, max.iter = 100, see.iter.val = F,
     }
     ## Interruption of cycle, in case of error message of the chol() function
 
+    ## Creating Q matrix using Cholesky SVD decomposition and block inverse matrices
     Lmat <- lst.chol$Lmat
     E <- forwardsolve(Lmat, B2) # Solves a triangular system of linear equations.
     Esing <- svd(E)
@@ -557,30 +558,6 @@ OEFPILIter <- function(y0, x0, L, CM, max.iter = 100, see.iter.val = F,
     Q21 <- Fmat %*% t(G)
     Q11 <- chol2inv(Lmat) - G %*% t(G)
     Q22 <- - Fmat %*% t(Fmat)
-
-    ############################################################################
-    # Old algorythm with help of function ginv (with warning message) ###
-    ############################################################################
-    #
-    # M <- rbind(cbind(M11, B2), cbind(t(B2), matrix(0,l,l)))
-    # ## M is the matrix, which inverse is matrix Q
-    #
-    # if ((sum(is.infinite(M)) > 0) | (sum(is.na(M)) > 0)) {
-    #   logg <- paste("Infinite, NA or NaN input into ginv(). Iteration aborted!!!", "\n",
-    #                 "The following results (if any) are only partial.", "\n", sep="")
-    #   message(logg)
-    #   logs <- paste(na.omit(logs), logg, sep = "//")
-    #   break
-    # }
-    # ## stoppage of while cycle in case of Inf, NaN or NA input in ginv
-    #
-    # Q <- ginv(M)
-    # ## calculation of inverse matrix
-    #
-    # Q11 <- Q[1:N, 1:N]
-    # Q22 <- Q[(N+1):(N+l),(N+1):(N+l)]
-    # Q21 <- Q[(N+1):(N+l), 1:N]
-
     colnames(Q22) <- names(L1)
     rownames(Q22) <- names(L1)
 
@@ -723,10 +700,6 @@ AddObjectToRdata <- function(obj, name_obj, rda_file, overwrite = FALSE) {
 
   load(file = rda_file, envir = old_e)
 
-  # name_obj <- deparse(substitute(obj))   # get the name of the object
-  # from the previous (internet) version
-
-  # new_e[[name_obj]] <- get(name_obj)     # use this only outside a function
   new_e[[name_obj]] <- obj
 
   # merge object from old environment with the new environment
