@@ -22,25 +22,26 @@ OEFPIL(data, form, start.val, CM, max.iter = 100, see.iter.val = F,
 
 \item{save.file.name}{a name of the file for saving results. If missing, no output file is saved.}
 
-\item{th}{a numerical value, indicating threshold necessary for the iteration stoppage.}
+\item{th}{a numerical value, indicating threshold necessary for the iteration stoppage. The default value is \code{.Machine$double.eps ^ (2 / 3)}.}
 
-\item{signif.level}{a significance level for the confidence interval.}
+\item{signif.level}{a significance level for the confidence interval. If missing, the default value 0.05 is used.}
 
 \item{useNLS}{logical. If \code{TRUE} (the default value), function will set up starting parameters calculated by \code{\link{nlsLM}} function (nonlinear least square estimation).}
 }
 \value{
-Returns an object of class \code{'OEPFIL'}, which is a list containing at least the following components
-\itemize{
-   \item \code{name_est} estimations of model parameters
-   \item \code{name_upgraded.start.val} estimations of model parameters
-   \item \code{it_num} number of iterations
-   \item \code{CI_parameters} list of confidence intervals for estimated parameters (significance level is based on parameter signif.level)
-   \item \code{logs} warnings or messages of events, which happen during the run of our function
-   \item \code{name_previous} values from the previous iterative step
-}
-In addition we get \code{contents}, which is list of outputs as original values and entered parameters, which are usable in other estimation process.
-If we set up parameter \code{useNLS} to TRUE, the start.values which enters in the estimation process will be calculated by \code{\link{nlsLM}} function. Otherwise the \code{start.values} and \code{name_upgraded.start.val} will be the same.
-In the case, if we add estimated parameters with NaN, NA, Inf or -Inf, we end up with error message.
+Returns an object of class \code{"OEFPIL"}. It is a list containing the following components
+\item{name_Est}{estimations of model parameters.}
+\item{name_upgraded.start.val}{modified starting values of estimating parameters (result from \code{\link{nlsLM}} function).}
+\item{cov.m_Est}{estimated covariance matrix of parameters.}
+\item{cov.m_nlsLM}{a covariance matrix of starting values of parameters from \code{\link{nlsLM}} function (if \code{useNLS} was set to \code{TRUE}).}
+\item{it_num}{number of iterations.}
+\item{name_previous.step}{the parameter values from the previous iterative step.}
+\item{CI_parameters}{a list of confidence intervals for estimated parameters (a significance level is based on \code{signif.level} argument).}
+\item{logs}{warnings or messages of events, which happen during the run of the algorithm.}
+
+\item{contents}{a list of outputs as original values of data and other characteristics, which are usable in plotting or other operations with model results.}
+
+If \code{useNLS} argument is set to \code{FALSE}, the \code{name_upgraded.start.val} are the same as \code{start.values} (no \code{nlsLM} procedure for starting value fitting is performed).
 }
 \description{
 Function for computing optimal estimate of function parameters by iterated linearization.
@@ -55,68 +56,66 @@ Models for OEPFIL function are specified symbolically. A typical model has the f
     In the \code{data} entry of type \code{data.frame}, both columns must be named as variables in formula. The same holds for elements of \code{list}.
 }
 \note{
-The symbol \code{pi} is reserved for Ludolf's constant. So naming one of the model´s parameters by this symbol results in constant entry of the model.
+The symbol \code{pi} is reserved for the Ludolf's constant. So naming one of the model´s parameters by this symbol results in constant entry of the model.
 }
 \examples{
-## We use data file: "silica2098.RData" which is part of OEFPIL package
-colnames(silica2098) <- c('x','y')
+##Example 1 - Use of OEFPIL function for steam data from MASS library
+library(MASS)
+steamdata <- steam
+colnames(steamdata) <- c("x","y")
+k <- nrow(steamdata)
+CM <- diag(rep(5,2*k))
 
-## Preparing parameter for OEFPIL function
+st1 <- OEFPIL(steamdata, y ~ b1 * 10 ^ (b2 * x/ (b3 + x)),
+ list(b1 = 5, b2 = 8, b3 = 200), CM, useNLS = F)
+
+## Displaying results using summary function
+summary(st1)
+
+## Plot of estimated function
+plot(st1, signif.level = signif.level)
+
+##Example 2 - Use of OEFPIL for nanoindentation data "silica2098.RData" (which is part of the OEFPIL package)
+#colnames(silica2098) <- c('x','y')
+
+## Preparing arguments for OEFPIL function
 max.iter = 100
 see.iter.val = F
-th = 0.001
+#th = 0.001
 signif.level = 0.05
 useNLS = T
 
-
-m.start <- 1.5
-hp.start <- 0.9
-alpha.start <- 5
-start.val <- list(alpha=alpha.start, m=m.start, hp=hp.start)
+## Creating a list with starting values for parameters
+start.val <- list(alpha=0.1, m=1.5, hp=0.9)
 names(start.val) <- c("alpha", "m", "hp")
 
 ## Imputed formula
 form <- y ~ alpha * (x - hp) ^ m
+k <- length(silica2098[,1])
+CM <- diag(c(rep(0.5^2,k),rep(0.001^2,k)))
 
-##Now we can use OEFPIL function with defined starting values
-output.form <- OEFPIL(silica2098, form, start.val,  max.iter = max.iter, see.iter.val = see.iter.val, th = th, signif.level = signif.level, useNLS = useNLS)
+## Use of OEFPIL function with defined arguments
+output.form <- OEFPIL(silica2098, form, start.val, CM = CM, max.iter = max.iter, see.iter.val = see.iter.val, signif.level = signif.level, useNLS = useNLS)
 
-## Finally we can use summary function
+## Displaying results with summary (the result is the same as in NanoIndent.OEFPIL function)
 summary(output.form)
 
-library(MASS)
-steamdata <- steam
-colnames(steamdata) <- c("x","y")
-n <- nrow(steamdata)
-CM1 <- diag(rep(0.1,2*n))
-CM2 <- diag(c(rep(0.2^2,n), rep(0.1^2,n)))
-
-##Use of OEFPIL function with defined parameters
-st1 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), list(b1 = 5, b2 = 8, b3 = 200),
-             CM1, useNLS = F)
-
-
-## Finally we can use summary function
-summary(st1)
-
-## Plot of estimated functions
-plot(output.form, signif.level = signif.level)
-
-##Now we look at the case when algorithm of OEPFIL function does not converge
+##Example 3 - shows sensitivity of algorithm to starting values of parameters
 startsteam <- list(b1 = 0.1, b2 = 5, b3 = 200)
-st3 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), list(b1 = 0.1, b2 = 5, b3 = 200),
+st3 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam,
               CM1, useNLS = F)
 
-##If set up useNLS = T, we get better upgraded starting values and algorithm converges
-startsteam <- list(b1 = 0.1, b2 = 5, b3 = 200)
-st3 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), list(b1 = 0.1, b2 = 5, b3 = 200),
+##With choice useNLS = T, starting values are upgraded by nls function and algorithm converges
+st3 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam,
               CM1, useNLS = T)
+print(st3)
 
 }
 \references{
-Kubáček, L. and Kubáčková, L. (2000) \emph{Statistika a metrologie}, Univerzita Palackého v Olomouci.
+Kubáček, L. and Kubáčková, L.\emph{Statistika a metrologie} (2000). Univerzita Palackého v Olomouci.
 
-   Köning1, R., Wimmer, G. and Witkovský, V. (2014) \emph{Ellipse fitting by nonlinear constraints to demodulate quadrature homodyne interferometer signals and to determine the statistical uncertainty of the interferometric phase}, Measurement Science and Technology.
+   Köning, R., Wimmer, G. and Witkovský, V. \emph{Ellipse fitting by nonlinear constraints to demodulate quadrature homodyne interferometer signals and to determine the statistical uncertainty of the interferometric phase}.
+    Measurement Science and Technology (2014).
 }
 \seealso{
 \code{\link{NanoIndent.OEFPIL}} and \code{\link{nls}} for nonlinear least square package. And especially function \code{\link{nlsLM}}.

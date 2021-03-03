@@ -61,8 +61,8 @@
 #' @examples
 #' ##Use of NanoIndent function for data file "silicaBerk.txt" (a part of the OEFPIL package)
 #' signif.level = 0.05
-#' output.form.NI <- NanoIndent.OEFPIL(silicaBerk, unload.data = T, uh = 0.5, uF = 0.001,
-#'                             signif.level = signif.level, useNLS = T)
+#' output.form.NI <- NanoIndent.OEFPIL(silicaBerk, unload.data = T, ucut = 0.98, lcut = 0.2,
+#' uh = 0.5, uF = 0.001, signif.level = signif.level, useNLS = T)
 #'
 #' ##The output is an object of class 'OEFPIL', supplementary functions for this class are available
 #' ##Use of summary function
