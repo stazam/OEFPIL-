@@ -2,7 +2,7 @@
 #' @title Estimation of parameters in nanoindentation
 #' @description Fitting the unloading curve in nanoindentation process by power law function with parameters estimated by iterated linearization algorithm (OEFPIL). The special case of \code{\link{OEFPIL}} function customized for using in nanoindentation (see 'Details').
 #' @usage NanoIndent.OEFPIL(data, alpha.start, m.start, hp.start, unload.data = F,ucut = 0.98,
-#'                          lcut = 0.2, CM, uh = 0.5, uF = 0.001, max.iter = 100, see.iter.val = F,
+#'                          lcut = 0.4, CM, uh = 0.5, uF = 0.001, max.iter = 100, see.iter.val = F,
 #'                          save.file.name, th = .Machine$double.eps ^ (2 / 3), signif.level = 0.05,
 #'                          useNLS = T)
 #'
@@ -24,12 +24,16 @@
 #' @param useNLS logical. If \code{TRUE} (the default value), function will set up starting parameters calculated by \code{\link{nlsLM}} function (nonlinear least square estimation).
 #'
 #' @details In this special case of the \code{OEFPIL} function, the dependence of parameters is fixed in
-#' the form: \eqn{F = \alpha * (h - h_p)^m}, where \code{F} is load and \code{h} depth measured within nanoindentation process. User has an option to enter his own starting values of
-#' parameters, or the values will be set up by algorithm.
-#' It is possible to set own starting values of the parameters, in the other case these values are calculated by algorithm as follows: \eqn{alpha.start = }
+#' the form: \eqn{F = \alpha * (h - h_p)^m}, where \code{F} is load and \code{h} depth measured within a nanoindentation process.
+#' It is possible to set own starting values of the parameters, in the other case these values are calculated by the algorithm and printing into the console.
+#'
+#' A selection of the part of the unloading curve fitted by a power law function is provided with \code{lcut} and \code{ucut} arguments. The default values 0.4 and 0.98 corresponds to the range 40 - 98\% \eqn{F_max} (maximum force) as recommended in ISO 14577 standard.
 #'
 #' The \code{CM} has to be a \code{2n} covariance matrix (where \code{n} is length of \code{data}) of following structure: first \code{n} elements of the diagonal correspond to the variance of depth and other to the variance of load.
 #' If argument \code{CM} is missing, the input covariance matrix is set to a diagonal matrix with variance of depth and load (calculated from \code{uh} and \code{uF}) on the diagonal.
+#' If standard deviations are missing too, the default values (\code{uh}=0.5, \code{uF}=0.001) are used.
+#'
+#' The estimations and confidence intervals are computed under normality assumption (see \code{\link{OEFPIL}} 'Details').
 #'
 #' @return Returns an object of class \code{"OEFPIL"}. It is a list containing at least the following components
 #'
@@ -45,44 +49,26 @@
 #'
 #' If \code{useNLS} argument is set to \code{FALSE}, the \code{name_upgraded.start.val} are the same as \code{start.values} (no \code{nlsLM} procedure for starting value fitting is performed).
 #'
-#' @references Kubáček, L. and Kubáčková, L. (2000) \emph{Statistika a metrologie}, Univerzita Palackého v Olomouci.
+#' @references ISO/IEC: \emph{14577-1:2015 Metallic materials – Instrumented indentation test for hardness and materials parameters – Part 1: Test method} (ISO/IEC, Internation Organisation for Standardisation, 2015).
 #'
-#'    Köning1, R., Wimmer, G. and Witkovský, V. (2014) \emph{Ellipse fitting by nonlinear constraints to demodulate quadrature homodyne interferometer signals and to determine the statistical uncertainty of the interferometric phase}, Measurement Science and Technology.
+#' Anna Charvátová Campbell, Petr Grolich, Radek Šlesinger. \emph{Niget: Nanoindentation general evaluation tool}. SoftwareX (2019), \strong{Vol. 9}: 248–254.
+#' \url{https://doi.org/10.1016/j.softx.2019.03.001}.
+#'
+#' Köning, R., Wimmer, G. and Witkovský, V. \emph{Ellipse fitting by nonlinear constraints to demodulate quadrature homodyne interferometer signals and to determine the statistical uncertainty of the interferometric phase}. Measurement Science and Technology (2014).
 #'
 #' @seealso \code{\link{OEFPIL}}
 #'
 #' @examples
-#' ## We use "uncut" data file: "silicaberk.txt" which is part of OEFPIL package
-#' ## Preparing parameter for OEFPIL function
-#' unload.data = T
-#' ucut = 0.98
-#' lcut = 0.2
-#' uh = 0.5
-#' uF = 0.001
-#' max.iter = 100
-#' see.iter.val = F
-#' th = 0.001
+#' ##Use of NanoIndent function for data file "silicaBerk.txt" (a part of the OEFPIL package)
 #' signif.level = 0.05
-#' useNLS = T
+#' output.form.NI <- NanoIndent.OEFPIL(silicaBerk, unload.data = T, uh = 0.5, uF = 0.001,
+#'                             signif.level = signif.level, useNLS = T)
 #'
-#'
-#' ##use of NanoIndent function with default parameters
-#' output.form.NI <- NanoIndent.OEFPIL(data)
-#'
-#' ##use of summary function for clear output
+#' ##The output is an object of class 'OEFPIL', supplementary functions for this class are available
+#' ##Use of summary function
 #' summary(output.form.NI)
 #'
-#'
-#' ##use of NanoIndent function with our predefined parameters
-#' output.form.NI <- NanoIndent.OEFPIL(silicaBerk, unload.data = unload.data, ucut = ucut,
-#'                             lcut = lcut, uh = uh, uF = uF, max.iter = max.iter,
-#'                             see.iter.val = see.iter.val, th = th,
-#'                             signif.level = signif.level, useNLS = useNLS)
-#'
-#' ##use of summary function for clear output
-#' summary(output.form.NI)
-#'
-#' ##plot of estimated functions
+#' ##Plot of estimated unloading curve
 #' plot(output.form.NI, signif.level = signif.level)
 #'
 #' @export
