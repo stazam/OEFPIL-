@@ -4,7 +4,7 @@
 \alias{print.OEFPIL}
 \title{Print function for an object of class 'OEFPIL'}
 \usage{
-\method{print}{OEFPIL}(output.form)
+\method{print}{OEFPIL}(object)
 }
 \arguments{
 \item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}

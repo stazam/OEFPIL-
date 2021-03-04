@@ -7,11 +7,11 @@
 curvplot.OEFPIL(object, signif.level, xx)
 }
 \arguments{
+\item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
+
 \item{signif.level}{a numeric value or a vector of significance levels for pointwise confidence bands. If missing, the estimated curve is plotted without confidence bands.}
 
 \item{xx}{a sequence of x-coordinates of points for computing and plotting confidence bands. If missing, the default sequence \code{seq(from = min(x), to = max(x), length.out = 301)} is used.}
-
-\item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
 }
 \value{
 a ggplot graph of the estimated curve with pointwise confidence bands. The result can be edit using other ggplot components as usually.

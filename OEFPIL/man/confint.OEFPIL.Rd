@@ -5,12 +5,12 @@
 \title{Confidence intervals for OEFPIL parameters}
 \usage{
 ## S3 method for class 'OEFPIL'
-   confint(object, signif.level = output.form$contents$signif.level)
+   confint(object, signif.level = object$contents$signif.level)
 }
 \arguments{
-\item{signif.level}{a numerical value or a vector of significance levels for confidence intervals. If missing, a value from the input \code{"OEFPIL"} object is used.}
-
 \item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
+
+\item{signif.level}{a numerical value or a vector of significance levels for confidence intervals. If missing, a value from the input \code{"OEFPIL"} object is used.}
 }
 \value{
 A matrix of estimated confidence intervals for model coefficients from an \code{"OEFPIL"} object. The matrix contains lower and upper confidence limits (columns) for each parameter (rows).

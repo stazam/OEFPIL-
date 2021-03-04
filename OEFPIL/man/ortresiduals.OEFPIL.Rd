@@ -7,9 +7,9 @@
 ortresiduals.OEFPIL(object, min.c)
 }
 \arguments{
-\item{min.c}{a numeric value, for defining minimization interval for the \code{\link{optimize}} function (if not defined, default value 0.05 * range(x) is used). Must be positive.}
-
 \item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
+
+\item{min.c}{a numeric value, for defining minimization interval for the \code{\link{optimize}} function (if not defined, default value 0.05 * range(x) is used). Must be positive.}
 }
 \value{
 Returns an object of type list containing following components
