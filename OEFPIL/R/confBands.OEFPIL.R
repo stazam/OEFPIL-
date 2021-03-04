@@ -31,7 +31,7 @@ confBands <- function(x, xx, signif.level) {
 }
 
 #' @export
-ConfBands.OEFPIL <- function(output.form, xx, signif.level = 0.05) {
+confBands.OEFPIL <- function(output.form, xx, signif.level = 0.05) {
   ## This is for calculating confidence bands of estimated function from OEFPIL.
   ## output.form . . . output from OEFPIL()
   ## xx          . . . in these points we calculate CI (confidence intervals) or

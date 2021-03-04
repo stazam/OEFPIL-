@@ -62,7 +62,7 @@ plot.OEFPIL <- function(output.form, xx, signif.level, ...) {
     xx <- seq(from = min(x), to = max(x), length.out = 301)
   }
 
-  CB <- ConfBands.OEFPIL(output.form, xx = xx, signif.level = signif.level)
+  CB <- confBands.OEFPIL(output.form, xx = xx, signif.level = signif.level)
 
   plot(x, y, xlab = idp.var.name, ylab = dep.var.name, ... = ...)
 
