@@ -85,7 +85,7 @@ summary(st1)
 plot(st1, signif.level = signif.level)
 
 ##Example 2 - Use of OEFPIL for nanoindentation data "silica2098.RData" (which is part of the OEFPIL package)
-#colnames(silica2098) <- c('x','y')
+colnames(silica2098) <- c('x','y')
 
 ## Preparing arguments for OEFPIL function
 max.iter = 100
