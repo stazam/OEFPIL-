@@ -648,6 +648,8 @@ ConditionForIteration <- function(L0, L1, th) {
   ## L0 . . . list containing current values of parameter
   ## th . . . threshold
 
+  L0[which(unlist(L0) == 0)] <- 10 ^ (-6)
+
   if (sum(abs(unlist(L1) - unlist(L0)) / abs(unlist(L0)) > th) > 0) {
     output <- T
   } else {

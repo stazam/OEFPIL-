@@ -41,7 +41,7 @@ confint.OEFPIL <- function(output.form, signif.level = output.form$contents$sign
   } #check if the values are between zero and one
 
   cov_m <- output.form$cov.m_Est ## Estimate of covariance matrix
-  l <- dim(cov_m)[1] ## number of parameters
+  l <- length(output.form$contents$names.of.parameters) ## number of parameters
 
   lst.parameters <- output.form[1:l]
 

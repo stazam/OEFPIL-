@@ -31,11 +31,13 @@ confBands <- function(x, xx, signif.level) {
 }
 
 #' @export
-confBands.OEFPIL <- function(output.form, xx, signif.level = 0.05) {
+confBands.OEFPIL <- function(output.form, xx, signif.level = 0.05, new.obs.variance) {
   ## This is for calculating confidence bands of estimated function from OEFPIL.
-  ## output.form . . . output from OEFPIL()
-  ## xx          . . . in these points we calculate CI (confidence intervals) or
-  ##                   CB (conf. bands)
+  ## output.form      . . . output from OEFPIL()
+  ## xx               . . . in these points we calculate CI (confidence intervals) or
+  ##                        CB (conf. bands)
+  ## new.obs.variance . . . a variance of the new observation;
+  ##                        it is needed for prediction intervals.
 
   LOF <- output.form$contents$LOF ## list of functions
   x <- output.form$contents[[3]] ## x data
@@ -43,7 +45,7 @@ confBands.OEFPIL <- function(output.form, xx, signif.level = 0.05) {
   CM <- output.form$contents$CM ## covariance matrix of the data
 
   cov_m <- output.form$cov.m_Est ## estimate of covariance matrix of parameters
-  l <- dim(cov_m)[1] ## number of parameters
+  l <- length(output.form$contents$names.of.parameters) ## number of parameters
 
   lst.parameters <- output.form[1:l] ## parameter estimation
   names(lst.parameters) <- output.form$contents$names.of.parameters
@@ -66,9 +68,14 @@ confBands.OEFPIL <- function(output.form, xx, signif.level = 0.05) {
 
     variance <- apply(((Omega %*% cov_m) * Omega), 1, sum)
 
-    n <- length(diag(CM)) / 2
-    var.est.new.obs <- mean(diag(CM)[(n+1):(2*n)])
-    ## "estimation" of variance of the new observation (needed for prediction interval)
+    if (missing(new.obs.variance)) {
+
+      n <- length(diag(CM)) / 2
+      new.obs.variance <- mean(diag(CM)[(n+1):(2*n)])
+      ## "estimation" of variance of the new observation (needed for prediction interval)
+
+    }
+
 
     sl <- sort(c(signif.level/2, 1 - signif.level/2), decreasing = F)
 
@@ -79,8 +86,8 @@ confBands.OEFPIL <- function(output.form, xx, signif.level = 0.05) {
     PCB_upr <- matrix(rep(yy, d), k, d) + matrix(rep(qnorm(sl[(d+1):(2*d)]), k), k, d, byrow = T) * sqrt(variance)
     ## pointwise confidence band
 
-    PredictCB_lwr <- matrix(rep(yy, d), k, d) + matrix(rep(qnorm(sl[1:d]), k), k, d, byrow = T) * sqrt(variance + var.est.new.obs)
-    PredictCB_upr <- matrix(rep(yy, d), k, d) + matrix(rep(qnorm(sl[(d+1):(2*d)]), k), k, d, byrow = T) * sqrt(variance + var.est.new.obs)
+    PredictCB_lwr <- matrix(rep(yy, d), k, d) + matrix(rep(qnorm(sl[1:d]), k), k, d, byrow = T) * sqrt(variance + new.obs.variance)
+    PredictCB_upr <- matrix(rep(yy, d), k, d) + matrix(rep(qnorm(sl[(d+1):(2*d)]), k), k, d, byrow = T) * sqrt(variance + new.obs.variance)
     ## pointwise confidence band
 
     PointwiseCB <- cbind(PCB_lwr, PCB_upr)

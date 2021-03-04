@@ -38,18 +38,18 @@
 
 
 
-plot.OEFPIL <- function(output.form, xx, signif.level, ...) {
+plot.OEFPIL <- function(output.form, xx, signif.level, interval, ...) {
   ## Function plots confidence bands of list from OEFPIL() function.
   ## output.form . . . output from OEFPIL()
   ## xx          . . . in these points we calculate and plot CI (confidence intervals) or
-  ##                    CB (conf. bands)
-
-  draw.CB <- T
+  ##                   CB (conf. bands)
+  ## interval    . . . character vector; It states type of interval to draw. It can take values:
+  ##                   "conf" (confidence int.) or "pred" (prediction int.) or c("conf", "pred") (both).
 
   if (missing(signif.level)) {
     signif.level <- 0.05
-    draw.CB <- F
   }
+
   d <- length(signif.level)
 
   x <- output.form$contents[[3]] ## x data
@@ -68,16 +68,20 @@ plot.OEFPIL <- function(output.form, xx, signif.level, ...) {
 
   lines(CB$xx, CB$yy, lwd = 2, col = "black")
 
-  if (draw.CB == T) {
+  if (any(interval == "conf")) {
     for (i in 0:(d-1)) {
       lines(CB$xx, CB$PointwiseCB[, i+1], lwd = 2, lty = 2, col = i + 2)
       lines(CB$xx, CB$PointwiseCB[, 2*d - i], lwd = 2, lty = 2, col = i + 2)
+    }
+  }
 
+  if (any(interval == "pred")) {
+    for (i in 0:(d-1)) {
       lines(CB$xx, CB$PredictCB[, i+1], lwd = 2, lty = 3, col = i + 2)
       lines(CB$xx, CB$PredictCB[, 2*d - i], lwd = 2, lty = 3, col = i + 2)
     }
   }
 
-  return(invisible(list(xx = CB$xx, yy = CB$yy, PointwiseCB = CB$PointwiseCB,
+  return(invisible(list(xx = xx, yy = CB$yy, PointwiseCB = CB$PointwiseCB,
                         PredictCB = CB$PredictCB)))
 }
