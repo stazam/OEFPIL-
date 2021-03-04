@@ -43,8 +43,6 @@ plot.OEFPIL <- function(output.form, xx, signif.level, ...) {
   ## output.form . . . output from OEFPIL()
   ## xx          . . . in these points we calculate and plot CI (confidence intervals) or
   ##                    CB (conf. bands)
-  ## signig.level . . . significance level
-  ## ...         . . . additional arguments
 
   draw.CB <- T
 
@@ -64,7 +62,7 @@ plot.OEFPIL <- function(output.form, xx, signif.level, ...) {
     xx <- seq(from = min(x), to = max(x), length.out = 301)
   }
 
-  CB <- confBands.OEFPIL(output.form, xx = xx, signif.level = signif.level)
+  CB <- ConfBands.OEFPIL(output.form, xx = xx, signif.level = signif.level)
 
   plot(x, y, xlab = idp.var.name, ylab = dep.var.name, ... = ...)
 
@@ -74,8 +72,12 @@ plot.OEFPIL <- function(output.form, xx, signif.level, ...) {
     for (i in 0:(d-1)) {
       lines(CB$xx, CB$PointwiseCB[, i+1], lwd = 2, lty = 2, col = i + 2)
       lines(CB$xx, CB$PointwiseCB[, 2*d - i], lwd = 2, lty = 2, col = i + 2)
+
+      lines(CB$xx, CB$PredictCB[, i+1], lwd = 2, lty = 3, col = i + 2)
+      lines(CB$xx, CB$PredictCB[, 2*d - i], lwd = 2, lty = 3, col = i + 2)
     }
   }
 
-  return(invisible(list(xx = CB$xx, yy = CB$yy, PointwiseCB =CB$PointwiseCB)))
+  return(invisible(list(xx = CB$xx, yy = CB$yy, PointwiseCB = CB$PointwiseCB,
+                        PredictCB = CB$PredictCB)))
 }

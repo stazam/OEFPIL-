@@ -405,7 +405,7 @@ OEFPIL <- function(data, form, start.val, CM,  max.iter = 100, see.iter.val = F,
                               th = th, LOF = LOF, logs = logs)
 
   contents <- list(input.form.string = input.form.string, LOF = LOF, x = x, y = y,
-                   dep.var.name = dep.var.name, idp.var.name = idp.var.name,
+                   CM = CM, dep.var.name = dep.var.name, idp.var.name = idp.var.name,
                    names.of.parameters = names(lst.iteration$lst.parameters),
                    signif.level = signif.level)
   ## list contains rest of parameters usable in following functions

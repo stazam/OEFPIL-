@@ -31,18 +31,18 @@ confBands <- function(x, xx, signif.level) {
 }
 
 #' @export
-confBands.OEFPIL <- function(output.form, xx, signif.level = 0.05) {
+ConfBands.OEFPIL <- function(output.form, xx, signif.level = 0.05) {
   ## This is for calculating confidence bands of estimated function from OEFPIL.
   ## output.form . . . output from OEFPIL()
   ## xx          . . . in these points we calculate CI (confidence intervals) or
   ##                   CB (conf. bands)
-  ## signif.level. . . significance level
 
   LOF <- output.form$contents$LOF ## list of functions
-  x <- output.form$contents[[3]] ## x-ova data
-  y <- output.form$contents[[4]] ## y-ova data
+  x <- output.form$contents[[3]] ## x data
+  y <- output.form$contents[[4]] ## y data
+  CM <- output.form$contents$CM ## covariance matrix of the data
 
-  cov_m <- output.form$cov.m_Est ## estimate of covariance matrix
+  cov_m <- output.form$cov.m_Est ## estimate of covariance matrix of parameters
   l <- dim(cov_m)[1] ## number of parameters
 
   lst.parameters <- output.form[1:l] ## parameter estimation
@@ -66,6 +66,10 @@ confBands.OEFPIL <- function(output.form, xx, signif.level = 0.05) {
 
     variance <- apply(((Omega %*% cov_m) * Omega), 1, sum)
 
+    n <- length(diag(CM)) / 2
+    var.est.new.obs <- mean(diag(CM)[1:n]) + mean(diag(CM)[(n+1):(2*n)])
+    ## "estimation" of variance of the new observation (needed for prediction interval)
+
     sl <- sort(c(signif.level/2, 1 - signif.level/2), decreasing = F)
 
     d <- length(signif.level)
@@ -75,10 +79,17 @@ confBands.OEFPIL <- function(output.form, xx, signif.level = 0.05) {
     PCB_upr <- matrix(rep(yy, d), k, d) + matrix(rep(qnorm(sl[(d+1):(2*d)]), k), k, d, byrow = T) * sqrt(variance)
     ## pointwise confidence band
 
-    PointwiseCB <- cbind(PCB_lwr, PCB_upr)
-    colnames(PointwiseCB) <- paste(round(sl * 100, 2), "%")
+    PredictCB_lwr <- matrix(rep(yy, d), k, d) + matrix(rep(qnorm(sl[1:d]), k), k, d, byrow = T) * sqrt(variance + var.est.new.obs)
+    PredictCB_upr <- matrix(rep(yy, d), k, d) + matrix(rep(qnorm(sl[(d+1):(2*d)]), k), k, d, byrow = T) * sqrt(variance + var.est.new.obs)
+    ## pointwise confidence band
 
-    return(invisible(list(xx = xx, yy = yy, PointwiseCB = PointwiseCB)))
+    PointwiseCB <- cbind(PCB_lwr, PCB_upr)
+    PredictCB <- cbind(PredictCB_lwr, PredictCB_upr)
+
+    colnames(PointwiseCB) <- paste(round(sl * 100, 2), "%")
+    colnames(PredictCB) <- paste(round(sl * 100, 2), "%")
+
+    return(invisible(list(xx = xx, yy = yy, PointwiseCB = PointwiseCB, PredictCB = PredictCB)))
   }
 }
 
