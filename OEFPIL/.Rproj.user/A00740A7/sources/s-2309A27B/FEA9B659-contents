@@ -10,7 +10,7 @@
 #'
 #' \item{x.ores}{a numerical vector of x coordinates of points, where the minimal distance is realized.}
 #' \item{o.resid}{a numerical vector of orthogonal residuals (minimal Euclidean distances between data points and estimated function).}
-#' \item{SSort}{the orthogonal sum of squares.}
+#' \item \code{SSort}{the orthogonal sum of squares.}
 #'
 #' @note The value \code{min.c} should not be too small. In that case the minimization interval is too narrow and the result can be misleading (see Example 3).
 #'

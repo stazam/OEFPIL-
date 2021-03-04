@@ -8,7 +8,7 @@
 #' @param signif.level a numeric value or a vector of significance levels for pointwise confidence bands. If missing, the estimated curve is plotted without confidence bands.
 #' @param xx a sequence of x-coordinates of points for computing and plotting confidence bands. If missing, the default sequence \code{seq(from = min(x), to = max(x), length.out = 301)} is used.
 #'
-#' @return A ggplot graph of the estimated curve with pointwise confidence bands. The result can be edit using other ggplot components as usually.
+#' @return a ggplot graph of the estimated curve with pointwise confidence bands. The result can be edit using other ggplot components as usually.
 #'
 #' @seealso \code{\link{OEFPIL}}, \code{\link{paramplot.OEFPIL}} and \code{\link{plot.OEFPIL}}.
 #'

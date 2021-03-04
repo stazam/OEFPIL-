@@ -13,10 +13,10 @@ ortresiduals.OEFPIL(object, min.c)
 }
 \value{
 Returns an object of type list containing following components
- \itemize{\item \code{x.ores} a numerical vector of x coordinates of points, where the minimal distance is realized.
-           \item  \code{o.resid} a numerical vector of orthogonal residuals (minimal Euclidean distances between data points and estimated function).
-           \item \code{SSort} the orthogonal sum of squares.
-           }
+
+\item{x.ores}{a numerical vector of x coordinates of points, where the minimal distance is realized.}
+\item{o.resid}{a numerical vector of orthogonal residuals (minimal Euclidean distances between data points and estimated function).}
+\item{SSort}{the orthogonal sum of squares.}
 }
 \description{
 Function for calculating orthogonal residuals of an \code{"OEFPIL"} object (i.e. the shortest Euclidean distance between data points and the estimated function from OEFPIL).

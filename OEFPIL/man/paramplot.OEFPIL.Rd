@@ -10,7 +10,7 @@ paramplot.OEFPIL(object)
 \item{object}{an object or a \code{list} of objects of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
 }
 \value{
-a ggplot graph of the estimated parameter values with error bars. The result can be edit using other ggplot components as usually.
+A ggplot graph of the estimated parameter values with error bars. The result can be edit using other ggplot components as usually.
 }
 \description{
 Function for plotting the estimated values of the parameters with error bars (plus minus standard deviation) using \code{ggplot} for an object (or list of objects) of class \code{"OEFPIL"}.

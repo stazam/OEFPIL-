@@ -18,10 +18,10 @@
 }
 \value{
 Returns an object of type list containing at least the following components
- \itemize{ \item \code{xx} a numerical vector of points where bands are calculated.
-           \item \code{yy} a numerical vector with values of estimated function in \code{xx}.
-           \item \code{PointwiseCB} a matrix of pointwise confidence bands at points \code{xx}.
-           }
+
+\item{xx}{a numerical vector of points where bands are calculated.}
+\item{yy}{a numerical vector with values of estimated function in \code{xx}}.
+\item{PointwiseCB}{a matrix of pointwise confidence bands at points \code{xx}}.
 }
 \description{
 Plot of the iterated linearization estimate of a function from an \code{"OEFPIL"} object with pointwise confidence bands.
