@@ -1,7 +1,7 @@
 #' @name NanoIndent.OEFPIL
 #' @title Estimation of parameters in nanoindentation
 #' @description Fitting the unloading curve in nanoindentation process by power law function with parameters estimated by iterated linearization algorithm (OEFPIL). The special case of \code{\link{OEFPIL}} function customized for using in nanoindentation (see 'Details').
-#' @usage NanoIndent.OEFPIL(data, alpha.start, m.start, hp.start, unload.data = F,ucut = 0.98,
+#' @usage NanoIndent.OEFPIL(data, alpha.start, m.start, hp.start, unload.data = F, ucut = 0.98,
 #'                          lcut = 0.4, CM, uh = 0.5, uF = 0.001, max.iter = 100, see.iter.val = F,
 #'                          save.file.name, th = .Machine$double.eps ^ (2 / 3), signif.level = 0.05,
 #'                          useNLS = T)
@@ -77,10 +77,10 @@
 ################################################################################
 
 NanoIndent.OEFPIL <- function(data, alpha.start, m.start, hp.start, unload.data = F,
-                       ucut = 0.98, lcut = 0.4, CM, uh = 0.5, uF = 0.001,
-                       max.iter = 100, see.iter.val = F, save.file.name,
-                       th = .Machine$double.eps ^ (2 / 3), signif.level = 0.05,
-                       useNLS = T) {
+                              ucut = 0.98, lcut = 0.4, CM, uh = 0.5, uF = 0.001,
+                              max.iter = 100, see.iter.val = F, save.file.name,
+                              th = .Machine$double.eps ^ (2 / 3), signif.level = 0.05,
+                              useNLS = T) {
   ##  Function for calculation of nanoindentation. It uses OEPFIL, which she prepared
   ## data (cut them off) and formula for. Funtional dependence of parameters is fixed in the form:
   ## f = alpha * (h - hp) ^ m, where f is load and h depth (on the unloaded part of curve).

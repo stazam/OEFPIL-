@@ -67,7 +67,7 @@ confBands.OEFPIL <- function(output.form, xx, signif.level = 0.05) {
     variance <- apply(((Omega %*% cov_m) * Omega), 1, sum)
 
     n <- length(diag(CM)) / 2
-    var.est.new.obs <- mean(diag(CM)[1:n]) + mean(diag(CM)[(n+1):(2*n)])
+    var.est.new.obs <- mean(diag(CM)[(n+1):(2*n)])
     ## "estimation" of variance of the new observation (needed for prediction interval)
 
     sl <- sort(c(signif.level/2, 1 - signif.level/2), decreasing = F)
