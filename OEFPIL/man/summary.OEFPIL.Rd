@@ -5,7 +5,7 @@
 \title{Summary from an OEFPIL object}
 \usage{
 ## S3 method for class 'OEFPIL'
-   summary(object, signif.level = object$contents$signif.level, print = T)
+   summary(object, signif.level = object$contents$signif.level, print = TRUE)
 }
 \arguments{
 \item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
@@ -35,7 +35,7 @@ utils::example("coef.OEFPIL",echo=FALSE)}
 summary(st1)
 
 ##Use of summary function with different parameters
-summary(st1, signif.level = 0.01, print = F)
+summary(st1, signif.level = 0.01, print = FALSE)
 
 }
 \seealso{

@@ -4,10 +4,10 @@
 \alias{NanoIndent.OEFPIL}
 \title{Estimation of parameters in nanoindentation}
 \usage{
-NanoIndent.OEFPIL(data, alpha.start, m.start, hp.start, unload.data = F, ucut = 0.98,
-                         lcut = 0.4, CM, uh = 0.5, uF = 0.001, max.iter = 100, see.iter.val = F,
+NanoIndent.OEFPIL(data, alpha.start, m.start, hp.start, unload.data = FALSE, ucut = 0.98,
+                         lcut = 0.4, CM, uh = 0.5, uF = 0.001, max.iter = 100, see.iter.val = FALSE,
                          save.file.name, th = .Machine$double.eps ^ (2 / 3), signif.level = 0.05,
-                         useNLS = T)
+                         useNLS = TRUE)
 }
 \arguments{
 \item{data}{an object of type \code{data.frame} with 2 named columns or \code{list} with 2 elements.}
@@ -76,8 +76,8 @@ The estimations and confidence intervals are computed under normality assumption
 \examples{
 ##Use of NanoIndent function for data file "silicaBerk.txt" (a part of the OEFPIL package)
 signif.level = 0.05
-output.form.NI <- NanoIndent.OEFPIL(silicaBerk, unload.data = T, ucut = 0.98, lcut = 0.2,
-uh = 0.5, uF = 0.001, signif.level = signif.level, useNLS = T)
+output.form.NI <- NanoIndent.OEFPIL(silicaBerk, unload.data = TRUE, ucut = 0.98, lcut = 0.2,
+uh = 0.5, uF = 0.001, signif.level = signif.level)
 
 ##The output is an object of class 'OEFPIL', supplementary functions for this class are available
 ##Use of summary function

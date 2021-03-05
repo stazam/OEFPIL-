@@ -32,9 +32,9 @@ CM2 <- diag(c(rep(12,n), rep(14,n)))
 
 ##Creating OEFPIL objects
 st1 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), list(b1 = 5, b2 = 8, b3 = 200),
-             CM1, useNLS = F)
+             CM1, useNLS = FALSE)
 st2 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), list(b1 = 5, b2 = 8, b3 = 200),
-             CM2, useNLS = F)
+             CM2, useNLS = FALSE)
 
 ##Use of curvplot.OEFPIL function on an object of class 'OEFPIL'
 curvplot.OEFPIL(st1, signif.level = 0.05)

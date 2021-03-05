@@ -26,9 +26,10 @@ Due to possible large differences in units of estimated parameters, the \code{sc
 utils::example("coef.OEFPIL",echo=FALSE)}
 ##-- Continuing the coef.OEFPIL(.) example:
 
+n <- nrow(steamdata)
 CM2 <- diag(c(rep(0.2^2,n), rep(0.1^2,n)))
 st2 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), list(b1 = 5, b2 = 8, b3 = 200),
-             CM2, useNLS = F)
+             CM2, useNLS = FALSE)
 
 ##Example 1 - Use of paramplot.OEFPIL function on an object of class 'OEFPIL'
 paramplot.OEFPIL(st2)
@@ -38,8 +39,9 @@ paramplot.OEFPIL(list(st1,st2))
 
 ##Example 3 - Use of paramplot.OEFPIL function on an object with NaN values (i. e. OEPFIL function does not converge)
 startsteam <- list(b1 = 0.1, b2 = 5, b3 = 200)
+CM1 <- diag(rep(0.1,2*n))
 st3 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam,
-              CM1, useNLS = F)
+              CM1, useNLS = FALSE)
 paramplot.OEFPIL(st3)
 
 }

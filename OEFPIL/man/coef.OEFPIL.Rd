@@ -27,7 +27,7 @@ k <- nrow(steamdata)
 CM <- diag(rep(0.1,2*k))
 
 ##Creating an OEFPIL object
-st1 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam, CM, useNLS = F)
+st1 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam, CM, useNLS = FALSE)
 
 ##Use of coef function
 coef(st1)
