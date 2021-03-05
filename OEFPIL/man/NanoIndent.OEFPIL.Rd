@@ -4,7 +4,7 @@
 \alias{NanoIndent.OEFPIL}
 \title{Estimation of parameters in nanoindentation}
 \usage{
-NanoIndent.OEFPIL(data, alpha.start, m.start, hp.start, unload.data = F,ucut = 0.98,
+NanoIndent.OEFPIL(data, alpha.start, m.start, hp.start, unload.data = F, ucut = 0.98,
                          lcut = 0.4, CM, uh = 0.5, uF = 0.001, max.iter = 100, see.iter.val = F,
                          save.file.name, th = .Machine$double.eps ^ (2 / 3), signif.level = 0.05,
                          useNLS = T)

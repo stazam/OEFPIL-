@@ -31,27 +31,27 @@ confBands <- function(x, xx, signif.level) {
 }
 
 #' @export
-confBands.OEFPIL <- function(output.form, xx, signif.level = 0.05, new.obs.variance) {
+confBands.OEFPIL <- function(object, xx, signif.level = 0.05, new.obs.variance) {
   ## This is for calculating confidence bands of estimated function from OEFPIL.
-  ## output.form      . . . output from OEFPIL()
+  ## object      . . . output from OEFPIL()
   ## xx               . . . in these points we calculate CI (confidence intervals) or
   ##                        CB (conf. bands)
   ## new.obs.variance . . . a variance of the new observation;
   ##                        it is needed for prediction intervals.
 
-  LOF <- output.form$contents$LOF ## list of functions
-  x <- output.form$contents[[3]] ## x data
-  y <- output.form$contents[[4]] ## y data
-  CM <- output.form$contents$CM ## covariance matrix of the data
+  LOF <- object$contents$LOF ## list of functions
+  x <- object$contents[[3]] ## x data
+  y <- object$contents[[4]] ## y data
+  CM <- object$contents$CM ## covariance matrix of the data
 
-  cov_m <- output.form$cov.m_Est ## estimate of covariance matrix of parameters
-  l <- length(output.form$contents$names.of.parameters) ## number of parameters
+  cov_m <- object$cov.m_Est ## estimate of covariance matrix of parameters
+  l <- length(object$contents$names.of.parameters) ## number of parameters
 
-  lst.parameters <- output.form[1:l] ## parameter estimation
-  names(lst.parameters) <- output.form$contents$names.of.parameters
+  lst.parameters <- object[1:l] ## parameter estimation
+  names(lst.parameters) <- object$contents$names.of.parameters
 
-  lst.parameters_previous.step <- output.form[(2*l+6):(3*l+5)]
-  names(lst.parameters_previous.step) <- output.form$contents$names.of.parameters
+  lst.parameters_previous.step <- object[(2*l+6):(3*l+5)]
+  names(lst.parameters_previous.step) <- object$contents$names.of.parameters
   ## estimate from the previous step
 
   if (IsListOK(lst.parameters) && IsListOK(lst.parameters_previous.step) && IsListOK(cov_m)) {

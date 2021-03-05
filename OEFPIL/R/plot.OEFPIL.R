@@ -38,9 +38,9 @@
 
 
 
-plot.OEFPIL <- function(output.form, xx, signif.level, interval, ...) {
+plot.OEFPIL <- function(object, xx, signif.level, interval, ...) {
   ## Function plots confidence bands of list from OEFPIL() function.
-  ## output.form . . . output from OEFPIL()
+  ## object . . . output from OEFPIL()
   ## xx          . . . in these points we calculate and plot CI (confidence intervals) or
   ##                   CB (conf. bands)
   ## interval    . . . character vector; It states type of interval to draw. It can take values:
@@ -52,17 +52,17 @@ plot.OEFPIL <- function(output.form, xx, signif.level, interval, ...) {
 
   d <- length(signif.level)
 
-  x <- output.form$contents[[3]] ## x data
-  y <- output.form$contents[[4]] ## y data
+  x <- object$contents[[3]] ## x data
+  y <- object$contents[[4]] ## y data
 
-  dep.var.name <- output.form$contents$dep.var.name ## name of dependant variabe
-  idp.var.name <- output.form$contents$idp.var.name ## name of independant variable
+  dep.var.name <- object$contents$dep.var.name ## name of dependant variabe
+  idp.var.name <- object$contents$idp.var.name ## name of independant variable
 
   if (missing(xx)) {
     xx <- seq(from = min(x), to = max(x), length.out = 301)
   }
 
-  CB <- confBands.OEFPIL(output.form, xx = xx, signif.level = signif.level)
+  CB <- confBands.OEFPIL(object, xx = xx, signif.level = signif.level)
 
   plot(x, y, xlab = idp.var.name, ylab = dep.var.name, ... = ...)
 

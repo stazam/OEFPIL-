@@ -8,13 +8,13 @@
     plot(object, xx, signif.level,...)
 }
 \arguments{
+\item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
+
 \item{xx}{a sequence of x-coordinates of points for computing and plotting confidence bands. If missing, the default sequence \code{seq(from = min(x), to = max(x), length.out = 301)} is used.}
 
 \item{signif.level}{a numerical value or a vector of significance levels for confidence bands.}
 
 \item{...}{additional arguments (same as in \link{plot} function) affecting the plot.}
-
-\item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
 }
 \value{
 Returns an object of type list containing at least the following components
