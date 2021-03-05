@@ -40,8 +40,10 @@ confint.OEFPIL <- function(object, signif.level = object$contents$signif.level) 
     stop("Values for significance level should be between 0 and 1!")
   } #check if the values are between zero and one
 
+
   cov_m <- object$cov.m_Est ## Estimate of covariance matrix
-  l <- dim(cov_m)[1] ## number of parameters
+  l <- length(object$contents$names.of.parameters) ## number of parameters
+
 
   lst.parameters <- object[1:l]
 
