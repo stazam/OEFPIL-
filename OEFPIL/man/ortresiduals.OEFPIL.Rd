@@ -7,16 +7,16 @@
 ortresiduals.OEFPIL(object, min.c)
 }
 \arguments{
-\item{min.c}{a numeric value, for defining minimization interval for the \code{\link{optimize}} function (if not defined, default value 0.05 * range(x) is used). Must be positive.}
-
 \item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
+
+\item{min.c}{a numeric value, for defining minimization interval for the \code{\link{optimize}} function (if not defined, default value 0.05 * range(x) is used). Must be positive.}
 }
 \value{
 Returns an object of type list containing following components
- \itemize{\item \code{x.ores} a numerical vector of x coordinates of points, where the minimal distance is realized.
-           \item  \code{o.resid} a numerical vector of orthogonal residuals (minimal Euclidean distances between data points and estimated function).
-           \item \code{SSort} the orthogonal sum of squares.
-           }
+
+\item{x.ores}{a numerical vector of x coordinates of points, where the minimal distance is realized.}
+\item{o.resid}{a numerical vector of orthogonal residuals (minimal Euclidean distances between data points and estimated function).}
+\item{SSort}{the orthogonal sum of squares.}
 }
 \description{
 Function for calculating orthogonal residuals of an \code{"OEFPIL"} object (i.e. the shortest Euclidean distance between data points and the estimated function from OEFPIL).

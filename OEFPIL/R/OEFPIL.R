@@ -32,6 +32,7 @@
 #' If argument \code{CM} is missing, the input covariance matrix is set to a diagonal variance matrix with sample variance on the main diagonal.
 #'
 #' @return Returns an object of class \code{"OEFPIL"}. It is a list containing the following components
+#'
 #' \item{name_Est}{estimations of model parameters.}
 #' \item{name_upgraded.start.val}{modified starting values of estimating parameters (result from \code{\link{nlsLM}} function).}
 #' \item{cov.m_Est}{estimated covariance matrix of parameters.}
@@ -74,7 +75,7 @@
 #'
 #' @examples
 #' ##Example 2 - Use of OEFPIL for nanoindentation data "silica2098.RData" (which is part of the OEFPIL package)
-#' #colnames(silica2098) <- c('x','y')
+#' colnames(silica2098) <- c('x','y')
 #'
 #' ## Preparing arguments for OEFPIL function
 #' max.iter = 100

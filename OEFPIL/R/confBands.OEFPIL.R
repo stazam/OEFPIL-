@@ -31,6 +31,7 @@ confBands <- function(x, xx, signif.level) {
 }
 
 #' @export
+
 confBands.OEFPIL <- function(object, xx, signif.level = 0.05, new.obs.variance) {
   ## This is for calculating confidence bands of estimated function from OEFPIL.
   ## object      . . . output from OEFPIL()
@@ -46,6 +47,7 @@ confBands.OEFPIL <- function(object, xx, signif.level = 0.05, new.obs.variance) 
 
   cov_m <- object$cov.m_Est ## estimate of covariance matrix of parameters
   l <- length(object$contents$names.of.parameters) ## number of parameters
+
 
   lst.parameters <- object[1:l] ## parameter estimation
   names(lst.parameters) <- object$contents$names.of.parameters

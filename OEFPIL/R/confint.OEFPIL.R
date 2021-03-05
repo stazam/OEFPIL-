@@ -2,7 +2,7 @@
 #' @title Confidence intervals for OEFPIL parameters
 #' @description Function computes confidence intervals for the parameters counted by \code{OEFPIL} function.
 #' @usage ## S3 method for class 'OEFPIL'
-#'    confint(object, signif.level = output.form$contents$signif.level)
+#'    confint(object, signif.level = object$contents$signif.level)
 #'
 #' @param object an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).
 #'
@@ -29,7 +29,7 @@
 #' @export
 
 
-confint.OEFPIL <- function(output.form, signif.level = output.form$contents$signif.level) {
+confint.OEFPIL <- function(object, signif.level = object$contents$signif.level) {
   ## Function calculate confidence intervals for parameters counted by OEFPIL function.
 
   if (!( is.vector(signif.level) && is.numeric(signif.level))){
@@ -40,10 +40,12 @@ confint.OEFPIL <- function(output.form, signif.level = output.form$contents$sign
     stop("Values for significance level should be between 0 and 1!")
   } #check if the values are between zero and one
 
-  cov_m <- output.form$cov.m_Est ## Estimate of covariance matrix
-  l <- length(output.form$contents$names.of.parameters) ## number of parameters
 
-  lst.parameters <- output.form[1:l]
+  cov_m <- object$cov.m_Est ## Estimate of covariance matrix
+  l <- length(object$contents$names.of.parameters) ## number of parameters
+
+
+  lst.parameters <- object[1:l]
 
   if (IsListOK(lst.parameters) && IsListOK(cov_m)) {
 

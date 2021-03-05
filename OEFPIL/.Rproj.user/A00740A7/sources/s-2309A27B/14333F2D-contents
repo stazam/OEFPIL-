@@ -1,0 +1,86 @@
+#' @name confBands.OEFPIL
+#' @title Calculate confidence bands for an object of class 'OEFPIL'
+#' @description Function calculates pointwise confidence bands of estimated function from 'OEFPIL'.
+#' @usage ## S3 method for class 'OEFPIL'
+#'    confBands(object, xx, signif.level = 0.05)
+#'
+#' @param object object of class 'OEFPIL'.
+#' @param xx numerical vector of points, where confidence bands will be calculated.
+#' @param signif.level numerical value or vector of significance levels for confidence intervals (default value is 0.05)
+#'
+#' @details We can add one numerical value or vector of numerical values of significance levels for confidence intervals.
+#'
+#' @return Matrix with named columns of estimated pointwise confidence bands of estimated function from on object \code{OEFPIL}. And also points where the bands are calculated.
+#'
+#' @seealso \code{\link{OEFPIL}}
+#'
+#' @examples
+#' \dontshow{
+#' utils::example("coef.OEFPIL",echo=FALSE)}
+#' ##-- Continuing the coef.OEFPIL(.) example:
+#'
+#' ##Use of confBands function with default parameters
+#' (a <- confBands(st1))
+#'
+#' #vector of numerical values
+#' (b <- confBands(st1,signif.level = c(0.01,0.05)))
+#'
+#' @export
+confBands <- function(x, xx, signif.level) {
+  UseMethod("confBands")
+}
+
+#' @export
+confBands.OEFPIL <- function(object, xx, signif.level = 0.05) {
+  ## This is for calculating confidence bands of estimated function from OEFPIL.
+  ## object . . . output from OEFPIL()
+  ## xx          . . . in these points we calculate CI (confidence intervals) or
+  ##                   CB (conf. bands)
+  ## signif.level. . . significance level
+
+  LOF <- object$contents$LOF ## list of functions
+  x <- object$contents[[3]] ## x-ova data
+  y <- object$contents[[4]] ## y-ova data
+
+  cov_m <- object$cov.m_Est ## estimate of covariance matrix
+  l <- dim(cov_m)[1] ## number of parameters
+
+  lst.parameters <- object[1:l] ## parameter estimation
+  names(lst.parameters) <- object$contents$names.of.parameters
+
+  lst.parameters_previous.step <- object[(2*l+6):(3*l+5)]
+  names(lst.parameters_previous.step) <- object$contents$names.of.parameters
+  ## estimate from the previous step
+
+  if (IsListOK(lst.parameters) && IsListOK(lst.parameters_previous.step) && IsListOK(cov_m)) {
+
+    if (missing(xx)) {
+      xx <- seq(from = min(x), to = max(x), by = 0.1)
+    }
+    yy <- sapply(xx, function(val, LP){do.call(LOF[[1]], args=c(val, LP))}, lst.parameters)
+
+    Omega <- sapply(1:l, function(i) {
+      sapply(xx, function(val, LP){do.call(LOF[[2+i]], args=c(val, LP))}, lst.parameters_previous.step)
+    })
+    ## i-th row of matrix is value of vector omega in the point xx[i]
+
+    variance <- apply(((Omega %*% cov_m) * Omega), 1, sum)
+
+    sl <- sort(c(signif.level/2, 1 - signif.level/2), decreasing = F)
+
+    d <- length(signif.level)
+    k <- length(xx)
+
+    PCB_lwr <- matrix(rep(yy, d), k, d) + matrix(rep(qnorm(sl[1:d]), k), k, d, byrow = T) * sqrt(variance)
+    PCB_upr <- matrix(rep(yy, d), k, d) + matrix(rep(qnorm(sl[(d+1):(2*d)]), k), k, d, byrow = T) * sqrt(variance)
+    ## pointwise confidence band
+
+    PointwiseCB <- cbind(PCB_lwr, PCB_upr)
+    colnames(PointwiseCB) <- paste(round(sl * 100, 2), "%")
+
+    return(invisible(list(xx = xx, yy = yy, PointwiseCB = PointwiseCB)))
+  }
+}
+
+
+

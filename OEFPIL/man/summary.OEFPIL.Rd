@@ -5,23 +5,23 @@
 \title{Summary from an OEFPIL object}
 \usage{
 ## S3 method for class 'OEFPIL'
-   summary(object, signif.level = output.form$contents$signif.level, print = T)
+   summary(object, signif.level = object$contents$signif.level, print = T)
 }
 \arguments{
+\item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
+
 \item{signif.level}{a significance level for the confidence interval. If missing, a value from the input \code{OEFPIL} object is used.}
 
 \item{print}{print out result summaries in the console (default \code{TRUE})}
-
-\item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
 }
 \value{
 Returns an object of type list containing following components
- \itemize{\item \code{param_Est} the (numerical) vector of estimated model parameters.
-           \item  \code{sd} standard deviations for estimated model parameters.
-           \item \code{cov.m_Est} the covariance matrix of estimated model parameters.
-           \item \code{it_num} number of iterations.
-           \item \code{CI_parameters} the matrix of lower and upper bounds for confidence intervals.
-           }
+
+ \item{param_Est}{the (numerical) vector of estimated model parameters.}
+ \item{sd}{standard deviations for estimated model parameters.}
+ \item{cov.m_Est}{the covariance matrix of estimated model parameters.}
+ \item{it_num}{number of iterations.}
+ \item{CI_parameters}{the matrix of lower and upper bounds for confidence intervals.}
 }
 \description{
 Function for fast and clean output of all basic information of an \code{"OEFPIL"} object.

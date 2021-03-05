@@ -12,10 +12,11 @@
 #'          The confidence bands are computing under normality assumption.
 #'
 #'@return Returns an object of type list containing at least the following components
-#'  \itemize{ \item \code{xx} a numerical vector of points where bands are calculated.
-#'            \item \code{yy} a numerical vector with values of estimated function in \code{xx}.
-#'            \item \code{PointwiseCB} a matrix of pointwise confidence bands at points \code{xx}.
-#'            }
+#'
+#' \item{xx}{a numerical vector of points where bands are calculated.}
+#' \item{yy}{a numerical vector with values of estimated function in \code{xx}}.
+#' \item{PointwiseCB}{a matrix of pointwise confidence bands at points \code{xx}}.
+#'
 #'
 #' @seealso \code{\link{OEFPIL}}
 #'
@@ -38,7 +39,9 @@
 
 
 
+
 plot.OEFPIL <- function(object, xx, signif.level, interval, ...) {
+
   ## Function plots confidence bands of list from OEFPIL() function.
   ## object . . . output from OEFPIL()
   ## xx          . . . in these points we calculate and plot CI (confidence intervals) or

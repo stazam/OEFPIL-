@@ -30,6 +30,7 @@ OEFPIL(data, form, start.val, CM, max.iter = 100, see.iter.val = F,
 }
 \value{
 Returns an object of class \code{"OEFPIL"}. It is a list containing the following components
+
 \item{name_Est}{estimations of model parameters.}
 \item{name_upgraded.start.val}{modified starting values of estimating parameters (result from \code{\link{nlsLM}} function).}
 \item{cov.m_Est}{estimated covariance matrix of parameters.}
@@ -84,7 +85,7 @@ summary(st1)
 plot(st1, signif.level = signif.level)
 
 ##Example 2 - Use of OEFPIL for nanoindentation data "silica2098.RData" (which is part of the OEFPIL package)
-#colnames(silica2098) <- c('x','y')
+colnames(silica2098) <- c('x','y')
 
 ## Preparing arguments for OEFPIL function
 max.iter = 100
