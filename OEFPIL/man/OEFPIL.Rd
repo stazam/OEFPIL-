@@ -4,13 +4,13 @@
 \alias{OEFPIL}
 \title{Optimal Estimation of Parameters by Iterated Linearization}
 \usage{
-OEFPIL(data, form, start.val, CM, max.iter = 100, see.iter.val = F,
-       save.file.name, th, signif.level, useNLS = T)
+OEFPIL(data, form, start.val, CM, max.iter = 100, see.iter.val = FALSE,
+       save.file.name, th, signif.level, useNLS = TRUE)
 }
 \arguments{
 \item{data}{a data file can be any object of type \code{data.frame} with 2 named columns or \code{list} with 2 elements.}
 
-\item{form}{an object of class \code{\link{formula}} (or one that can be coerced to that class): a symbolic description of the model to be fitted. The details of model specification are given under ‘Details’.}
+\item{form}{an object of class \code{\link[stats]{formula}} (or one that can be coerced to that class): a symbolic description of the model to be fitted. The details of model specification are given under ‘Details’.}
 
 \item{start.val}{a named list of starting values of estimating parameters.}
 
@@ -76,23 +76,23 @@ k <- nrow(steamdata)
 CM <- diag(rep(5,2*k))
 
 st1 <- OEFPIL(steamdata, y ~ b1 * 10 ^ (b2 * x/ (b3 + x)),
- list(b1 = 5, b2 = 8, b3 = 200), CM, useNLS = F)
+ list(b1 = 5, b2 = 8, b3 = 200), CM, useNLS = FALSE)
 
 ## Displaying results using summary function
 summary(st1)
 
 ## Plot of estimated function
-plot(st1, signif.level = signif.level)
+plot(st1, signif.level = 0.05)
 
 ##Example 2 - Use of OEFPIL for nanoindentation data "silica2098.RData" (which is part of the OEFPIL package)
 colnames(silica2098) <- c('x','y')
 
 ## Preparing arguments for OEFPIL function
 max.iter = 100
-see.iter.val = F
+see.iter.val = FALSE
 #th = 0.001
 signif.level = 0.05
-useNLS = T
+useNLS = TRUE
 
 ## Creating a list with starting values for parameters
 start.val <- list(alpha=0.1, m=1.5, hp=0.9)
@@ -110,13 +110,12 @@ output.form <- OEFPIL(silica2098, form, start.val, CM = CM, max.iter = max.iter,
 summary(output.form)
 
 ##Example 3 - shows sensitivity of algorithm to starting values of parameters
+CM1 <- diag(rep(0.1,2*k))
 startsteam <- list(b1 = 0.1, b2 = 5, b3 = 200)
-st3 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam,
-              CM1, useNLS = F)
+st3 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam, useNLS = FALSE)
 
-##With choice useNLS = T, starting values are upgraded by nls function and algorithm converges
-st3 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam,
-              CM1, useNLS = T)
+##With choice useNLS = TRUE, starting values are upgraded by nls function and algorithm converges
+st3 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam, useNLS = TRUE)
 print(st3)
 
 }
@@ -127,5 +126,5 @@ Kubáček, L. and Kubáčková, L.\emph{Statistika a metrologie} (2000). Univerz
     Measurement Science and Technology (2014).
 }
 \seealso{
-\code{\link{NanoIndent.OEFPIL}} and \code{\link{nls}} for nonlinear least square package. And especially function \code{\link{nlsLM}}.
+\code{\link{NanoIndent.OEFPIL}} and function \code{\link[minpack.lm]{nlsLM}} from \code{minipack.lm} package for nonlinear least square algorithms.
 }

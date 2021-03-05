@@ -405,7 +405,7 @@ OEFPIL <- function(data, form, start.val, CM,  max.iter = 100, see.iter.val = FA
                               th = th, LOF = LOF, logs = logs)
 
   contents <- list(input.form.string = input.form.string, LOF = LOF, x = x, y = y,
-                   CM = CM, dep.var.name = dep.var.name, idp.var.name = idp.var.name,
+                   dep.var.name = dep.var.name, idp.var.name = idp.var.name,
                    names.of.parameters = names(lst.iteration$lst.parameters),
                    signif.level = signif.level)
   ## list contains rest of parameters usable in following functions
@@ -647,8 +647,6 @@ ConditionForIteration <- function(L0, L1, th) {
   ## L0 . . . list containing values of parameters from previous step
   ## L0 . . . list containing current values of parameter
   ## th . . . threshold
-
-  L0[which(unlist(L0) == 0)] <- 10 ^ (-6)
 
   if (sum(abs(unlist(L1) - unlist(L0)) / abs(unlist(L0)) > th) > 0) {
     output <- TRUE

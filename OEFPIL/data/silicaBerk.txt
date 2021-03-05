@@ -1,8 +1,8 @@
-## Nanoindentation measurements of load F (mN) and depth h (nm) of fused silica material
+## Nanoindentation measurements of Load F (mN) and Depth h (nm) of fused silica material
 ## with Berkovich diamond tip, data contains only unload part of indentation curve
 ## source: Czech Metrology Institute, Brno, Czech Republic
 
-h	F
+Depth	Load
 70.660000	0.606600
 70.763000	0.605700
 70.842000	0.604600
