@@ -1,49 +1,58 @@
 #' @name plot.OEFPIL
 #' @title Plot the estimate from an OEPFIL object
-#' @description Plot of the iterated linearization estimate of a function from an \code{"OEFPIL"} object with pointwise confidence bands.
-#' @usage ## S3 method for class 'OEFPIL'
-#'     plot(object, xx, signif.level,...)
+#' @description Plot of the iterated linearization estimate of a function from an \code{"OEFPIL"} object with pointwise confidence and prediction bands.
 #'
-#' @param object an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).
+#' @param x an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).
 #' @param xx  a sequence of x-coordinates of points for computing and plotting confidence bands. If missing, the default sequence \code{seq(from = min(x), to = max(x), length.out = 301)} is used.
 #' @param signif.level a numerical value or a vector of significance levels for confidence bands.
+#' @param interval a character vector. It states type of an interval to draw. Following values are possible: \code{"conf"} for confidence interval, \code{"pred"} for prediction interval or \code{c("conf", "pred")} for both. If missing, no intervals are plotted.
+#' @param new.obs.variance the variance of a new observation for prediction interval computing.
 #' @param ... additional arguments (same as in \link{plot} function) affecting the plot.
-#' @details If the \code{signif.level} argument is missing, the value is set to 0.05, but the confidence bands are not plotted.
-#'          The confidence bands are computing under normality assumption.
+#' @details If the \code{signif.level} argument is missing, even though an \code{interval} argument is set to \code{"conf"}, the default value 0.05 is used.
+#'          The line type is set to \code{'dashed'} for confidence bands and \code{'dotted'} for prediction bands.
+#'          The confidence and prediction bands are computed under normality assumption.
 #'
-#'@return Returns an object of type list containing at least the following components
+#' @return Returns an object of type list containing at least the following components
 #'
 #' \item{xx}{a numerical vector of points where bands are calculated.}
-#' \item{yy}{a numerical vector with values of estimated function in \code{xx}}.
-#' \item{PointwiseCB}{a matrix of pointwise confidence bands at points \code{xx}}.
+#' \item{yy}{a numerical vector with values of estimated function in \code{xx}.}
+#' \item{PointwiseCB}{a matrix of confidence intervals at points \code{xx}.}
+#' \item{PredictCB}{a matrix of prediction intervals at points \code{xx}.}
 #'
 #'
 #' @seealso \code{\link{OEFPIL}}
 #'
 #' @examples
-#' \dontshow{
-#' utils::example("coef.OEFPIL",echo=FALSE)}
-#' ##-- Continuing the coef.OEFPIL(.) example:
+#' library(MASS)
 #'
-#' ##Use of plot function with default parameters, signif.level is not set up...No confidence bands are plotted
+#' ##Use of plot function with default parameters
+#' ##(only estimation of the function is plotted, without confidence or prediction bands)
+#' steamdata <- steam
+#' colnames(steamdata) <- c("x","y")
+#' n <- nrow(steamdata)
+#' CM1 <- diag(rep(10,2*n))
+#' st1 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), list(b1 = 5, b2 = 8, b3 = 200),
+#'              CM1, useNLS = FALSE)
 #' plot(st1)
 #'
-#' ##Use of plot function with different parameters
-#' plot(st1, seq(0,113,0.1), signif.level = c(0.01,0.05), main = "Graph of estimated function")
+#' ##Use of plot function for plotting confidence bands
+#' plot(st1, seq(0,113,0.1), signif.level = c(0.01,0.05), interval = "conf",
+#'  main = "Graph of estimated function")
+#'
+#'##Use of plot function for plotting prediction bands
+#' plot(st1, seq(0,113,0.1), interval = "pred", new.obs.variance = 15)
 #'
 #' ##Return values of plot function
-#' (a <- plot(st1, signif.level = 0.05))
+#' (a <- plot(st1, signif.level = 0.05, interval = "conf"))
 #'
+#' @import graphics
 #'
+#' @method plot OEFPIL
 #' @export
-
-
-
-
-plot.OEFPIL <- function(object, xx, signif.level, interval, ...) {
+plot.OEFPIL <- function(x, xx, signif.level, interval, new.obs.variance, ...) {
 
   ## Function plots confidence bands of list from OEFPIL() function.
-  ## object . . . output from OEFPIL()
+  ## x . . . output from OEFPIL()
   ## xx          . . . in these points we calculate and plot CI (confidence intervals) or
   ##                   CB (conf. bands)
   ## interval    . . . character vector; It states type of interval to draw. It can take values:
@@ -56,21 +65,33 @@ plot.OEFPIL <- function(object, xx, signif.level, interval, ...) {
 
   d <- length(signif.level)
 
-  x <- object$contents[[3]] ## x data
-  y <- object$contents[[4]] ## y data
+  x_1 <- x$contents[[3]] ## x_1 data
+  y <- x$contents[[4]] ## y data
 
-  dep.var.name <- object$contents$dep.var.name ## name of dependant variabe
-  idp.var.name <- object$contents$idp.var.name ## name of independant variable
+  dep.var.name <- x$contents$dep.var.name ## name of dependant variabe
+  idp.var.name <- x$contents$idp.var.name ## name of independant variable
 
   if (missing(xx)) {
-    xx <- seq(from = min(x), to = max(x), length.out = 301)
+    xx <- seq(from = min(x_1), to = max(x_1), length.out = 301)
   }
 
-  CB <- confBands.OEFPIL(object, xx = xx, signif.level = signif.level)
+  if (missing(new.obs.variance)) {
+    CM <- x$contents$CM
+    n <- length(diag(CM)) / 2
+    new.obs.variance <- mean(diag(CM)[1:n]) + mean(diag(CM)[(n+1):(2*n)])
+    ## "estimation" of variance of the new observation (needed for prediction interval)
 
-  plot(x, y, xlab = idp.var.name, ylab = dep.var.name, ... = ...)
+  }
+
+  CB <- confBands(x, xx = xx, signif.level = signif.level, new.obs.variance = new.obs.variance)
+
+  plot(x_1, y, xlab = idp.var.name, ylab = dep.var.name, ... = ...)
 
   lines(CB$xx, CB$yy, lwd = 2, col = "black")
+
+  if(missing(interval)){
+    interval <- "none"
+  }
 
 
   if (any(interval == "conf")) {
@@ -83,7 +104,7 @@ plot.OEFPIL <- function(object, xx, signif.level, interval, ...) {
   if (any(interval == "pred")) {
     for (i in 0:(d-1)) {
       lines(CB$xx, CB$PredictCB[, i+1], lwd = 2, lty = 3, col = i + 2)
-      lines(CB$xx, CB$PredictCB[, 2*d - i], lwd = 2, lty = 3, col = i + 2)
+        lines(CB$xx, CB$PredictCB[, 2*d - i], lwd = 2, lty = 3, col = i + 2)
     }
   }
 

@@ -16,7 +16,7 @@ A ggplot graph of the estimated parameter values with error bars. The result can
 Function for plotting the estimated values of the parameters with error bars (plus minus standard deviation) using \code{ggplot} for an object (or list of objects) of class \code{"OEFPIL"}.
 }
 \details{
-The input list has to be without \code{NaN}, \code{NA}, \code{Inf} or \code{-Inf} values in the estimated parameters or covariance matrix in the source \code{"OEFPIL"} object. In that case the function returns a warning message and no graph is plotted (see Example 3).
+The input list has to be without \code{NaN}, \code{NA}, \code{Inf} or \code{-Inf} values in the estimated parameters or covariance matrix in the source \code{"OEFPIL"} object. In that case the function returns a warning message and no graph is plotted.
 }
 \note{
 Due to possible large differences in units of estimated parameters, the \code{scale} argument for facetting in the \code{ggplot} graph is set to \code{"free"}. It should be taken into account when interpreting the results.
@@ -37,12 +37,6 @@ paramplot.OEFPIL(st2)
 ##Example 2 - Use of paramplot.OEFPIL function on a list of objects of class 'OEFPIL'
 paramplot.OEFPIL(list(st1,st2))
 
-##Example 3 - Use of paramplot.OEFPIL function on an object with NaN values (i. e. OEPFIL function does not converge)
-startsteam <- list(b1 = 0.1, b2 = 5, b3 = 200)
-CM1 <- diag(rep(0.1,2*n))
-st3 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam,
-              CM1, useNLS = FALSE)
-paramplot.OEFPIL(st3)
 
 }
 \seealso{

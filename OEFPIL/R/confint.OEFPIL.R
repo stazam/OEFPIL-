@@ -1,12 +1,11 @@
-#' @name confint.OEFPIL
+#' @name confInt.OEFPIL
 #' @title Confidence intervals for OEFPIL parameters
 #' @description Function computes confidence intervals for the parameters counted by \code{OEFPIL} function.
-#' @usage ## S3 method for class 'OEFPIL'
-#'    confint(object, signif.level = object$contents$signif.level)
+#' @usage confInt.OEFPIL(object, signif.level = object$contents$signif.level, parm)
 #'
 #' @param object an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).
-#'
 #' @param signif.level a numerical value or a vector of significance levels for confidence intervals. If missing, a value from the input \code{"OEFPIL"} object is used.
+#' @param parm a specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considered.
 #'
 #' @details The confidence intervals are computing under normality assumption.
 #'
@@ -21,15 +20,16 @@
 #'
 #' ##Use of confint function
 #' #one numerical value
-#' confint(st1)
+#' confInt.OEFPIL(st1)
 #'
 #' #vector of numerical values
-#' confint(st1, signif.level = c(0.01,0.05,0.1))
+#' confInt.OEFPIL(st1, signif.level = c(0.01,0.05,0.1))
+#'
+#' #estimation of specified parameters
+#' confInt.OEFPIL(st1 , signif.level = c(0.01,0.05,0.1), parm = c('b1','b2'))
 #'
 #' @export
-
-
-confint.OEFPIL <- function(object, signif.level = object$contents$signif.level) {
+confInt.OEFPIL <- function(object, signif.level = object$contents$signif.level, parm) {
   ## Function calculate confidence intervals for parameters counted by OEFPIL function.
 
   if (!( is.vector(signif.level) && is.numeric(signif.level))){
@@ -61,7 +61,12 @@ confint.OEFPIL <- function(object, signif.level = object$contents$signif.level) 
     row.names(CI.matrix) <- names(vec.parameters)
     colnames(CI.matrix) <- paste(round(sl * 100, 2), "%")
 
-    return(CI.matrix)
+    if (missing(parm)){
+        return(CI.matrix)
+    }
+    else{
+      return(CI.matrix[paste0(parm,rep('_Est',length(parm))),])
+    }
 
   } else {
 

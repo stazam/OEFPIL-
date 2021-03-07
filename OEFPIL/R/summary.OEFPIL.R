@@ -1,12 +1,11 @@
 #' @name summary.OEFPIL
 #' @title Summary from an OEFPIL object
 #' @description Function for fast and clean output of all basic information of an \code{"OEFPIL"} object.
-#' @usage ## S3 method for class 'OEFPIL'
-#'    summary(object, signif.level = object$contents$signif.level, print = TRUE)
 #'
 #' @param object an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).
 #' @param signif.level a significance level for the confidence interval. If missing, a value from the input \code{OEFPIL} object is used.
-#' @param print print out result summaries in the console (default \code{TRUE})
+#' @param print print out result summaries in the console (default \code{TRUE}).
+#' @param ...   other arguments.
 #'
 #' @return Returns an object of type list containing following components
 #'
@@ -30,17 +29,18 @@
 #' ##Use of summary function with different parameters
 #' summary(st1, signif.level = 0.01, print = FALSE)
 #'
+#' @method summary OEFPIL
 #' @export
-
-
 summary.OEFPIL <- function(object, signif.level = object$contents$signif.level,
-                           print = TRUE) {
+                           print = TRUE,...) {
   ## Function for fast and clean output of all basic information
   ## object  . . . output from OEFPIL
   ## signif.level . . . significance level
   ## print        . . . states, that if we want to output table as well
+  ## . . .        . . . additional arguments
 
 
+  parm <- NULL
   if (IsListOK(object$cov.m_Est)) {
 
     l <- dim(object$cov.m_Est)[1] ## number of parameters
@@ -56,11 +56,11 @@ summary.OEFPIL <- function(object, signif.level = object$contents$signif.level,
       l <- dim(summary.form$cov.m_Est)[1] ## number of parameters
 
       if (length(signif.level) != length(object$contents$signif.level)) {
-        summary.form$CI_parameters <- confint.OEFPIL(object, signif.level)
+        summary.form$CI_parameters <- confInt.OEFPIL(object, signif.level = signif.level)
         ## We are calculating new CI, in case of the confidence level was assigned
 
       } else if (all(signif.level != object$contents$signif.level)) {
-        summary.form$CI_parameters <- confint.OEFPIL(object, signif.level)
+        summary.form$CI_parameters <- confInt.OEFPIL(object, signif.level = signif.level)
         ## We are calculating new CI, in case of the confidence level was assigned
 
       }

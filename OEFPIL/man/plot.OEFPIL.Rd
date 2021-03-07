@@ -4,15 +4,18 @@
 \alias{plot.OEFPIL}
 \title{Plot the estimate from an OEPFIL object}
 \usage{
-## S3 method for class 'OEFPIL'
-    plot(object, xx, signif.level,...)
+\method{plot}{OEFPIL}(x, xx, signif.level, interval, new.obs.variance, ...)
 }
 \arguments{
-\item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
+\item{x}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
 
 \item{xx}{a sequence of x-coordinates of points for computing and plotting confidence bands. If missing, the default sequence \code{seq(from = min(x), to = max(x), length.out = 301)} is used.}
 
 \item{signif.level}{a numerical value or a vector of significance levels for confidence bands.}
+
+\item{interval}{a character vector. It states type of an interval to draw. Following values are possible: \code{"conf"} for confidence interval, \code{"pred"} for prediction interval or \code{c("conf", "pred")} for both. If missing, no intervals are plotted.}
+
+\item{new.obs.variance}{the variance of a new observation for prediction interval computing.}
 
 \item{...}{additional arguments (same as in \link{plot} function) affecting the plot.}
 }
@@ -20,30 +23,40 @@
 Returns an object of type list containing at least the following components
 
 \item{xx}{a numerical vector of points where bands are calculated.}
-\item{yy}{a numerical vector with values of estimated function in \code{xx}}.
-\item{PointwiseCB}{a matrix of pointwise confidence bands at points \code{xx}}.
+\item{yy}{a numerical vector with values of estimated function in \code{xx}.}
+\item{PointwiseCB}{a matrix of confidence intervals at points \code{xx}.}
+\item{PredictCB}{a matrix of prediction intervals at points \code{xx}.}
 }
 \description{
-Plot of the iterated linearization estimate of a function from an \code{"OEFPIL"} object with pointwise confidence bands.
+Plot of the iterated linearization estimate of a function from an \code{"OEFPIL"} object with pointwise confidence and prediction bands.
 }
 \details{
-If the \code{signif.level} argument is missing, the value is set to 0.05, but the confidence bands are not plotted.
-         The confidence bands are computing under normality assumption.
+If the \code{signif.level} argument is missing, even though an \code{interval} argument is set to \code{"conf"}, the default value 0.05 is used.
+         The line type is set to \code{'dashed'} for confidence bands and \code{'dotted'} for prediction bands.
+         The confidence and prediction bands are computed under normality assumption.
 }
 \examples{
-\dontshow{
-utils::example("coef.OEFPIL",echo=FALSE)}
-##-- Continuing the coef.OEFPIL(.) example:
+library(MASS)
 
-##Use of plot function with default parameters, signif.level is not set up...No confidence bands are plotted
+##Use of plot function with default parameters
+##(only estimation of the function is plotted, without confidence or prediction bands)
+steamdata <- steam
+colnames(steamdata) <- c("x","y")
+n <- nrow(steamdata)
+CM1 <- diag(rep(10,2*n))
+st1 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), list(b1 = 5, b2 = 8, b3 = 200),
+             CM1, useNLS = FALSE)
 plot(st1)
 
-##Use of plot function with different parameters
-plot(st1, seq(0,113,0.1), signif.level = c(0.01,0.05), main = "Graph of estimated function")
+##Use of plot function for plotting confidence bands
+plot(st1, seq(0,113,0.1), signif.level = c(0.01,0.05), interval = "conf",
+ main = "Graph of estimated function")
+
+##Use of plot function for plotting prediction bands
+plot(st1, seq(0,113,0.1), interval = "pred", new.obs.variance = 15)
 
 ##Return values of plot function
-(a <- plot(st1, signif.level = 0.05))
-
+(a <- plot(st1, signif.level = 0.05, interval = "conf"))
 
 }
 \seealso{

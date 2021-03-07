@@ -4,11 +4,12 @@
 \alias{vcov.OEFPIL}
 \title{Covariance matrix from an OEFPIL object}
 \usage{
-## S3 method for class 'OEFPIL'
-   vcov(object)
+\method{vcov}{OEFPIL}(object, ...)
 }
 \arguments{
 \item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
+
+\item{...}{other arguments.}
 }
 \value{
 A matrix of the estimated covariances between the parameter estimates from an \code{"OEFPIL"} object.

@@ -37,7 +37,9 @@
 #' curvplot.OEFPIL(st2, signif.level = c(0.01,0.05), xx = seq(0,110,1))
 #'
 #' ##Use of curvplot.OEFPIL function with additional arguments as for ggplot2
-#' curvplot.OEFPIL(st1, signif.level = 0.05) + labs(x = "New x label") + labs(title = "New graph title")
+#' curvplot.OEFPIL(st1, signif.level = 0.05) +
+#'  labs(x = "New x label") +
+#'  labs(title = "New graph title")
 #'
 #' @export
 

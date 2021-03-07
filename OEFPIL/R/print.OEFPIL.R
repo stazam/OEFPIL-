@@ -1,9 +1,9 @@
 #' @name print.OEFPIL
 #' @title Print function for an object of class 'OEFPIL'
 #' @description Function prints the information about an object of class \code{"OEFPIL"}.
-#'    print(object)
 #'
-#' @param object an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).
+#' @param x an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).
+#' @param ... other arguments.
 #'
 #' @details Function prints the formula and estimated parameters of the model from an \code{OEFPIL} object.
 #'
@@ -20,18 +20,18 @@
 #' @export
 
 
-print.OEFPIL <- function(object) {
+print.OEFPIL <- function(x,...) {
   ## A print method for "OEFPIL".
 
-  l <- (length(object) - 8) / 3
+  l <- (length(x) - 8) / 3
   ## number of parameters
 
   cat("OEFPIL\n\n")
   cat("Formula:\n")
-  cat(object$contents$input.form.string)
+  cat(x$contents$input.form.string)
   cat("\n\n")
   cat("Estimated parameters:\n")
-  cat(unlist(object[1:l]))
+  cat(unlist(x[1:l]))
 
-  invisible(object)
+  invisible(x)
 }

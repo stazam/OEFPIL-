@@ -1,18 +1,24 @@
 #' @name confBands.OEFPIL
-#' @title Calculate confidence bands for an object of class 'OEFPIL'
-#' @description Function calculates pointwise confidence bands of estimated function from 'OEFPIL'.
+#' @title Confidence and prediction bands for OEFPIL object
+#' @description Function calculates pointwise confidence bands and prediction bands of estimated function from an object of class \code{"OEFPIL"}.
 #' @usage ## S3 method for class 'OEFPIL'
-#'    confBands(object, xx, signif.level = 0.05)
+#'    confBands(object, xx, signif.level = 0.05, new.obs.variance)
 #'
-#' @param object object of class 'OEFPIL'.
-#' @param xx numerical vector of points, where confidence bands will be calculated.
-#' @param signif.level numerical value or vector of significance levels for confidence intervals (default value is 0.05)
+#' @param object an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).
+#' @param xx a sequence of x-coordinates of points for computing confidence and prediction intervals. If missing, the default sequence \code{seq(from = min(x), to = max(x), length.out = 301)} is used.
+#' @param signif.level  a numerical value or a vector of significance levels for confidence bands. If missing, the default value 0.05 is used.
+#' @param new.obs.variance the variance of a new observation for prediction interval computing.
 #'
-#' @details We can add one numerical value or vector of numerical values of significance levels for confidence intervals.
+#' @details An argument \code{signif.level} can be one numerical value or vector of numerical values of significance levels for confidence intervals.
 #'
-#' @return Matrix with named columns of estimated pointwise confidence bands of estimated function from on object \code{OEFPIL}. And also points where the bands are calculated.
+#' @return Returns an object of type list containing the following components.
 #'
-#' @seealso \code{\link{OEFPIL}}
+#' \item{xx}{a numerical vector of points where intervals are calculated.}
+#' \item{yy}{a numerical vector with values of estimated function in \code{xx}.}
+#' \item{PointwiseCB}{a matrix of confidence intervals at points \code{xx}.}
+#' \item{PredictCB}{a matrix of prediction intervals at points \code{xx}.}
+#'
+#' @seealso \code{\link{OEFPIL}}, \code{\link{plot.OEFPIL}}
 #'
 #' @examples
 #' \dontshow{
@@ -20,13 +26,15 @@
 #' ##-- Continuing the coef.OEFPIL(.) example:
 #'
 #' ##Use of confBands function with default parameters
-#' (a <- confBands(st1))
+#' a <- confBands(st1)
+#' str(a)
 #'
-#' #vector of numerical values
-#' (b <- confBands(st1,signif.level = c(0.01,0.05)))
+#' ##Computing two different confidence bands in one step
+#' b <- confBands(st1, signif.level = c(0.01,0.05))
+#' str(b)
 #'
 #' @export
-confBands <- function(x, xx, signif.level) {
+confBands <- function(object, xx, signif.level = 0.05, new.obs.variance) {
   UseMethod("confBands")
 }
 
@@ -59,7 +67,7 @@ confBands.OEFPIL <- function(object, xx, signif.level = 0.05, new.obs.variance) 
   if (IsListOK(lst.parameters) && IsListOK(lst.parameters_previous.step) && IsListOK(cov_m)) {
 
     if (missing(xx)) {
-      xx <- seq(from = min(x), to = max(x), by = 0.1)
+      xx <- seq(from = min(x), to = max(x), length.out = 301)
     }
     yy <- sapply(xx, function(val, LP){do.call(LOF[[1]], args=c(val, LP))}, lst.parameters)
 

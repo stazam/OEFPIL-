@@ -50,8 +50,8 @@ Function for computing optimal estimate of parameters of a nonlinear function by
 \details{
 Models for OEPFIL function are specified symbolically. A typical model has the form \code{y ~ f(x, a_1,...,a_n)}, where
 
- \itemize{\item \code{y} is the (numerical) response vector
-           \item \code{x} is the predictor
+ \itemize{\item \code{y} is the (numerical) response vector,
+           \item \code{x} is the predictor,
            \item terms \code{a_1,...,a_n} are parameters of specified model.}
  Function \code{f} is known nonlinear function with continuous second partial derivatives with respect to \code{x} and parameters \code{a_1,...a_n} (for more details see \emph{Kubáček}).
 
@@ -84,13 +84,11 @@ summary(st1)
 ## Plot of estimated function
 plot(st1, signif.level = 0.05)
 
-##Example 2 - Use of OEFPIL for nanoindentation data "silica2098.RData" (which is part of the OEFPIL package)
-colnames(silica2098) <- c('x','y')
-
+## Example 2 - Use of OEFPIL for nanoindentation data "silica2098.RData"
+## (which is part of the OEFPIL package)
 ## Preparing arguments for OEFPIL function
 max.iter = 100
 see.iter.val = FALSE
-#th = 0.001
 signif.level = 0.05
 useNLS = TRUE
 
@@ -99,24 +97,16 @@ start.val <- list(alpha=0.1, m=1.5, hp=0.9)
 names(start.val) <- c("alpha", "m", "hp")
 
 ## Imputed formula
-form <- y ~ alpha * (x - hp) ^ m
+form <- Load ~ alpha * (Depth - hp) ^ m
 k <- length(silica2098[,1])
 CM <- diag(c(rep(0.5^2,k),rep(0.001^2,k)))
 
 ## Use of OEFPIL function with defined arguments
-output.form <- OEFPIL(silica2098, form, start.val, CM = CM, max.iter = max.iter, see.iter.val = see.iter.val, signif.level = signif.level, useNLS = useNLS)
+output.form <- OEFPIL(silica2098, form, start.val, CM = CM, max.iter = max.iter,
+ see.iter.val = see.iter.val, signif.level = signif.level, useNLS = useNLS)
 
 ## Displaying results with summary (the result is the same as in NanoIndent.OEFPIL function)
 summary(output.form)
-
-##Example 3 - shows sensitivity of algorithm to starting values of parameters
-CM1 <- diag(rep(0.1,2*k))
-startsteam <- list(b1 = 0.1, b2 = 5, b3 = 200)
-st3 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam, useNLS = FALSE)
-
-##With choice useNLS = TRUE, starting values are upgraded by nls function and algorithm converges
-st3 <- OEFPIL(steamdata, y ~ b1 * 10^(b2 * x/ (b3 + x)), startsteam, useNLS = TRUE)
-print(st3)
 
 }
 \references{

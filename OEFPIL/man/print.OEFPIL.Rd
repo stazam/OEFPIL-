@@ -4,14 +4,15 @@
 \alias{print.OEFPIL}
 \title{Print function for an object of class 'OEFPIL'}
 \usage{
-\method{print}{OEFPIL}(object)
+\method{print}{OEFPIL}(x, ...)
 }
 \arguments{
-\item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
+\item{x}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
+
+\item{...}{other arguments.}
 }
 \description{
 Function prints the information about an object of class \code{"OEFPIL"}.
-   print(object)
 }
 \details{
 Function prints the formula and estimated parameters of the model from an \code{OEFPIL} object.

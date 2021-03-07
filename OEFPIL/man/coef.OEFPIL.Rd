@@ -4,11 +4,12 @@
 \alias{coef.OEFPIL}
 \title{Extract model coefficients from OEFPIL}
 \usage{
-## S3 method for class 'OEFPIL'
-   coef(object)
+\method{coef}{OEFPIL}(object, ...)
 }
 \arguments{
 \item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{OEFPIL}).}
+
+\item{...}{other arguments.}
 }
 \value{
 A named vector of estimated model coefficients extracted from an \code{"OEFPIL"} object.

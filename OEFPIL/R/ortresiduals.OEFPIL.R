@@ -72,6 +72,7 @@ ortresiduals.OEFPIL <- function(object, min.c){
     assign(object$contents$names.of.parameters[i],object[[i]])
   } ## assigning estimated parameter values
 
+  ftomin <- NULL
   ## rewriting main function in optimize requested format - ftomin() function
   formstring <- strsplit(object$contents$input.form.string, "~")[[1]][2]
   eval(parse(text = paste("ftomin <- function(x){", formstring, "}", sep = "")))
@@ -80,7 +81,7 @@ ortresiduals.OEFPIL <- function(object, min.c){
     ## input: f - function to minimize
     ##        x0, y0 - coordinates of the data point
     ##        min.c - constant for defining minimization interval
-    ## output: clasicall output for optimize()
+    ## output: classical output for optimize()
 
     eudist <- function(x){sqrt((x - x0)^2 + (f(x) - y0)^2)}
     optimize(eudist, c(x0 - min.c, x0 + min.c))

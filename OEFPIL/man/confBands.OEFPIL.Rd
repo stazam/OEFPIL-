@@ -3,26 +3,33 @@
 \name{confBands.OEFPIL}
 \alias{confBands.OEFPIL}
 \alias{confBands}
-\title{Calculate confidence bands for an object of class 'OEFPIL'}
+\title{Confidence and prediction bands for OEFPIL object}
 \usage{
 ## S3 method for class 'OEFPIL'
-   confBands(object, xx, signif.level = 0.05)
+   confBands(object, xx, signif.level = 0.05, new.obs.variance)
 }
 \arguments{
-\item{xx}{numerical vector of points, where confidence bands will be calculated.}
+\item{object}{an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).}
 
-\item{signif.level}{numerical value or vector of significance levels for confidence intervals (default value is 0.05)}
+\item{xx}{a sequence of x-coordinates of points for computing confidence and prediction intervals. If missing, the default sequence \code{seq(from = min(x), to = max(x), length.out = 301)} is used.}
 
-\item{object}{object of class 'OEFPIL'.}
+\item{signif.level}{a numerical value or a vector of significance levels for confidence bands. If missing, the default value 0.05 is used.}
+
+\item{new.obs.variance}{the variance of a new observation for prediction interval computing.}
 }
 \value{
-Matrix with named columns of estimated pointwise confidence bands of estimated function from on object \code{OEFPIL}. And also points where the bands are calculated.
+Returns an object of type list containing the following components.
+
+\item{xx}{a numerical vector of points where intervals are calculated.}
+\item{yy}{a numerical vector with values of estimated function in \code{xx}.}
+\item{PointwiseCB}{a matrix of confidence intervals at points \code{xx}.}
+\item{PredictCB}{a matrix of prediction intervals at points \code{xx}.}
 }
 \description{
-Function calculates pointwise confidence bands of estimated function from 'OEFPIL'.
+Function calculates pointwise confidence bands and prediction bands of estimated function from an object of class \code{"OEFPIL"}.
 }
 \details{
-We can add one numerical value or vector of numerical values of significance levels for confidence intervals.
+An argument \code{signif.level} can be one numerical value or vector of numerical values of significance levels for confidence intervals.
 }
 \examples{
 \dontshow{
@@ -30,12 +37,14 @@ utils::example("coef.OEFPIL",echo=FALSE)}
 ##-- Continuing the coef.OEFPIL(.) example:
 
 ##Use of confBands function with default parameters
-(a <- confBands(st1))
+a <- confBands(st1)
+str(a)
 
-#vector of numerical values
-(b <- confBands(st1,signif.level = c(0.01,0.05)))
+##Computing two different confidence bands in one step
+b <- confBands(st1, signif.level = c(0.01,0.05))
+str(b)
 
 }
 \seealso{
-\code{\link{OEFPIL}}
+\code{\link{OEFPIL}}, \code{\link{plot.OEFPIL}}
 }
