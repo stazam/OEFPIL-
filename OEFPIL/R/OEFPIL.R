@@ -54,7 +54,7 @@
 #'    Köning, R., Wimmer, G. and Witkovský, V. \emph{Ellipse fitting by nonlinear constraints to demodulate quadrature homodyne interferometer signals and to determine the statistical uncertainty of the interferometric phase}.
 #'     Measurement Science and Technology (2014).
 #'
-#' @seealso \code{\link{NanoIndent.OEFPIL}} and function \code{\link[minpack.lm]{nlsLM}} from \code{minipack.lm} package for nonlinear least square algorithms.
+#' @seealso \code{\link{NanoIndent.OEFPIL}} and function \code{\link[minpack.lm]{nlsLM}} from \code{minpack.lm} package for nonlinear least square algorithms.
 #'
 #' @examples
 #' ##Example 1 - Use of OEFPIL function for steam data from MASS library
