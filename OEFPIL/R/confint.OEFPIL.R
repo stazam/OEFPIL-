@@ -62,10 +62,14 @@ confInt.OEFPIL <- function(object, signif.level = object$contents$signif.level, 
     colnames(CI.matrix) <- paste(round(sl * 100, 2), "%")
 
     if (missing(parm)){
+
         return(CI.matrix)
+
     }
     else{
+
       return(CI.matrix[paste0(parm,rep('_Est',length(parm))),])
+
     }
 
   } else {

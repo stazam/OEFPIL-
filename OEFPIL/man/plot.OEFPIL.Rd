@@ -33,7 +33,8 @@ Plot of the iterated linearization estimate of a function from an \code{"OEFPIL"
 \details{
 If the \code{signif.level} argument is missing, even though an \code{interval} argument is set to \code{"conf"}, the default value 0.05 is used.
          The line type is set to \code{'dashed'} for confidence bands and \code{'dotted'} for prediction bands.
-         The confidence and prediction bands are computed under normality assumption.
+         The confidence and prediction bands are computed under normality assumption. If the vector \code{signif.level} length is greater than 1,
+         then multiple bands are plotted. The widest band has colour no. 2. The second widest band has colour no. 3 etc.
 }
 \examples{
 library(MASS)
