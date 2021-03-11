@@ -116,5 +116,5 @@ Kubáček, L. and Kubáčková, L.\emph{Statistika a metrologie} (2000). Univerz
     Measurement Science and Technology (2014).
 }
 \seealso{
-\code{\link{NanoIndent.OEFPIL}} and function \code{\link[minpack.lm]{nlsLM}} from \code{minipack.lm} package for nonlinear least square algorithms.
+\code{\link{NanoIndent.OEFPIL}} and function \code{\link[minpack.lm]{nlsLM}} from \code{minpack.lm} package for nonlinear least square algorithms.
 }
