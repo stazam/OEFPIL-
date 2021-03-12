@@ -11,10 +11,11 @@ Main features of package include:
   - extract confidence bands for set of points
   - confidence intervals for parameters 
   - extract summary of used model
-  - get covariance matrix for model parameters.
-- plot the OEFPIL object, when one is created in a different ways
+  - get covariance matrix for model parameters
+- plot the OEFPIL object in the following ways
   - plot of estimated curve 
   - plot of estimated curve with ggplot2 package
+  - plot of parameters with error bars with ggplot2 package
 - count orthogonal residuals for OEFPIL object
 - print out information about OEFPIL object
 - calculate estimates of parameters in Nanoindentation
@@ -22,7 +23,7 @@ Main features of package include:
 
 ## Installation
 
-You can install release from Github repository by:
+You can install release from GitHub repository by:
 
 ``` r
 devtools::install_github("stazam/OEFPIL-")
@@ -83,7 +84,7 @@ summary(st1)
 Plot of estimated function
 
 ```r
-plot(st1, signif.level = 0.05, main  = "Estimated function by iterated linearization")
+plot(st1, signif.level = 0.05, interval = "conf", main  = "Estimated function by iterated linearization")
 ```
 
 ![](OEFPIL/man/figure/unnamed-chunk-4-1.png)
