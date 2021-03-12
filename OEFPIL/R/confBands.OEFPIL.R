@@ -42,7 +42,7 @@ confBands <- function(object, xx, signif.level = 0.05, new.obs.variance) {
 
 confBands.OEFPIL <- function(object, xx, signif.level = 0.05, new.obs.variance) {
   ## This is for calculating confidence bands of estimated function from OEFPIL.
-  ## object      . . . output from OEFPIL()
+  ## object           . . . output from OEFPIL()
   ## xx               . . . in these points we calculate CI (confidence intervals) or
   ##                        CB (conf. bands)
   ## new.obs.variance . . . a variance of the new observation;
@@ -57,19 +57,19 @@ confBands.OEFPIL <- function(object, xx, signif.level = 0.05, new.obs.variance) 
   l <- length(object$contents$names.of.parameters) ## number of parameters
 
 
-  lst.parameters <- object[1:l] ## parameter estimation
+  #lst.parameters <- object[(2*l+6):(3*l+5)] ## parameter estimation from previous step
   names(lst.parameters) <- object$contents$names.of.parameters
 
   lst.parameters_previous.step <- object[(2*l+6):(3*l+5)]
   names(lst.parameters_previous.step) <- object$contents$names.of.parameters
   ## estimate from the previous step
 
-  if (IsListOK(lst.parameters) && IsListOK(lst.parameters_previous.step) && IsListOK(cov_m)) {
+  if (IsListOK(lst.parameters_previous.step) && IsListOK(cov_m)) {
 
     if (missing(xx)) {
       xx <- seq(from = min(x), to = max(x), length.out = 301)
     }
-    yy <- sapply(xx, function(val, LP){do.call(LOF[[1]], args=c(val, LP))}, lst.parameters)
+    yy <- sapply(xx, function(val, LP){do.call(LOF[[1]], args=c(val, LP))}, lst.parameters_previous.step)
 
     Omega <- sapply(1:l, function(i) {
       sapply(xx, function(val, LP){do.call(LOF[[2+i]], args=c(val, LP))}, lst.parameters_previous.step)

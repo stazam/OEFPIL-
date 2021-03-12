@@ -53,7 +53,7 @@
 plot.OEFPIL <- function(x, xx, signif.level, interval, new.obs.variance, ...) {
 
   ## Function plots confidence bands of list from OEFPIL() function.
-  ## x . . . output from OEFPIL()
+  ## x           . . . output from OEFPIL()
   ## xx          . . . in these points we calculate and plot CI (confidence intervals) or
   ##                   CB (conf. bands)
   ## interval    . . . character vector; It states type of interval to draw. It can take values:
