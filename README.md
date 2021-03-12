@@ -3,7 +3,7 @@
 
 ## Optimal Estimation of Parameters by Iterated Linearization
 
-The original version of this software was written in R by Stanislav Zámečník, Zdeňka Geršlová and Vojtěch Šindlář in year 2021. The package is based on thoretical backround of work of prof. Gejza Wimmer and afterwards implemented by meantioned authors. 
+The original version of this software was written in R by Stanislav Zámečník, Zdeňka Geršlová and Vojtěch Šindlář in year 2021. The package is based on theoretical background of work of prof. Gejza Wimmer and afterwards implemented by mentioned authors. 
 Main features of package include:
 
 - estimation of parameters of nonlinear function by iterated linearization
