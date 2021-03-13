@@ -56,10 +56,6 @@ confBands.OEFPIL <- function(object, xx, signif.level = 0.05, new.obs.variance) 
   cov_m <- object$cov.m_Est ## estimate of covariance matrix of parameters
   l <- length(object$contents$names.of.parameters) ## number of parameters
 
-
-  #lst.parameters <- object[(2*l+6):(3*l+5)] ## parameter estimation from previous step
-  names(lst.parameters) <- object$contents$names.of.parameters
-
   lst.parameters_previous.step <- object[(2*l+6):(3*l+5)]
   names(lst.parameters_previous.step) <- object$contents$names.of.parameters
   ## estimate from the previous step

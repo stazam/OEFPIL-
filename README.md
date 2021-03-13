@@ -3,7 +3,7 @@
 
 ## Optimal Estimation of Parameters by Iterated Linearization
 
-The original version of this software was written in R by Stanislav Zámečník, Zdeňka Geršlová and Vojtěch Šindlář in year 2021. The package is based on theoretical background of work of prof. Gejza Wimmer and afterwards implemented by mentioned authors. 
+The original version of this software was written in R by Stanislav Zámečník, Zdeňka Geršlová and Vojtěch Šindlář in year 2021. The package is based on thoretical backround of work of prof. Gejza Wimmer and afterwards implemented by meantioned authors. 
 Main features of package include:
 
 - estimation of parameters of nonlinear function by iterated linearization
@@ -11,11 +11,10 @@ Main features of package include:
   - extract confidence bands for set of points
   - confidence intervals for parameters 
   - extract summary of used model
-  - get covariance matrix for model parameters
-- plot the OEFPIL object in the following ways
+  - get covariance matrix for model parameters.
+- plot the OEFPIL object, when one is created in a different ways
   - plot of estimated curve 
   - plot of estimated curve with ggplot2 package
-  - plot of parameters with error bars with ggplot2 package
 - count orthogonal residuals for OEFPIL object
 - print out information about OEFPIL object
 - calculate estimates of parameters in Nanoindentation
@@ -23,7 +22,7 @@ Main features of package include:
 
 ## Installation
 
-You can install release from GitHub repository by:
+You can install release from Github repository by:
 
 ``` r
 devtools::install_github("stazam/OEFPIL-")
@@ -44,7 +43,7 @@ library(MASS)
 steamdata <- steam
 colnames(steamdata) <- c("x","y")
 k <- nrow(steamdata)
-CM <- diag(rep(5,2*k))
+CM <- diag(rep(10,2*k))
 ```
 
 Creating OEFPIL object which we want to work with
@@ -68,15 +67,15 @@ summary(st1)
 ## y ~ b1 * 10^(b2 * x/(b3 + x))
 ## 
 ##     Param Est         Std Dev   CI Bound 2.5 %   CI Bound 97.5 %
-## b1   4.487870        1.079683         2.371730          6.604011
-## b2   7.188155        1.319428         4.602123          9.774186
-## b3 221.837783       70.677909        83.311627        360.363940
+## b1   4.487870        1.526903         1.495196          7.480545
+## b2   7.188155        1.865953         3.530953         10.845356
+## b3 221.837783       99.953658        25.932214        417.743352
 ## 
 ##  Estimated covariance matrix: 
-##           b1        b2         b3
-## b1  1.165716  1.148097   67.15270
-## b2  1.148097  1.740891   92.31566
-## b3 67.152702 92.315659 4995.36683
+##            b1         b2        b3
+## b1   2.331432   2.296195  134.3054
+## b2   2.296195   3.481782  184.6313
+## b3 134.305405 184.631318 9990.7337
 ## 
 ##  Number of iterations: 10
 ```

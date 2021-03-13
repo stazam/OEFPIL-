@@ -6,7 +6,8 @@ Authors@R: c(person(given = "Stanislav", family = "Zámečník", email = "xzamec
     person(given = "Vojtěch", family = "Šindlář", email = "xsindlarv@math.muni.cz", role = c("aut", "ctr")),
     person(given = "Zdeňka", family = "Geršlová", email = "gerslovaz@math.muni.cz", role = c("aut", "ctr")),
     person(given = "Gejza", family = "Wimmer", email = "wimmer@mat.savba.sk", role = "aut"),
-    person(given = "Technology Agency of the Czech Republic", comment = "This software OEFPIL was financed by the Technology Agency of the Czech Republic within the ZÉTA Programme.", role = c("fnd")))
+    person(given = "Technology Agency of the Czech Republic", comment = "This software OEFPIL was financed by the Technology Agency of the Czech Republic within the ZÉTA Programme.", role = c("fnd")),
+    person(given = "Masaryk University, a public university, ID: 00216224", role = c("cph")))
 Description: Package for optimal estimation of function parameters by Iterated Linearization.
 License: GPL (>=2)
 Depends: R(>= 3.5.0)
@@ -21,4 +22,5 @@ Author: Stanislav Zámečník [aut, cre],
         Zdeňka Geršlová [aut, ctr] (gerslovaz@math.muni.cz),
         Gejza Wimmer [aut] (Author of teoretical backround, wimmer@mat.savba.sk)
         TAČR [fnd] (This software OEFPIL was financed by the Technology Agency of the Czech Republic within the ZÉTA Programme, https://www.tacr.cz )
+        Masaryk University [cph]
 Maintainer: Stanislav Zámečník <xzamecniks@math.muni.cz>

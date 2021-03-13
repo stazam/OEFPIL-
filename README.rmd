@@ -1,7 +1,7 @@
 ---
 title: "README"
 author: "stanislav zamecnik"
-date: "10 3 2021"
+date: "12 3 2021"
 output:
   html_document:
     df_print: paged
@@ -55,7 +55,7 @@ library(MASS)
 steamdata <- steam
 colnames(steamdata) <- c("x","y")
 k <- nrow(steamdata)
-CM <- diag(rep(5,2*k))
+CM <- diag(rep(10,2*k))
 ``` 
 
 Creating OEFPIL object which we want to work with
@@ -73,7 +73,7 @@ summary(st1)
 
 Plot of estimated function
 ```{r, eval = TRUE}
-plot(st1, signif.level = 0.05, main  = "Estimated function by iterated linearization")
+plot(st1, signif.level = 0.05, interval = "conf", main  = "Estimated function by iterated linearization")
 ``` 
 
 Ggplot graph of estimated function 
