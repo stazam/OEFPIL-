@@ -56,16 +56,24 @@ confBands.OEFPIL <- function(object, xx, signif.level = 0.05, new.obs.variance) 
   cov_m <- object$cov.m_Est ## estimate of covariance matrix of parameters
   l <- length(object$contents$names.of.parameters) ## number of parameters
 
+  lst.parameters <- object[1:l]
+  names(lst.parameters) <- object$contents$names.of.parameters
+  ## estimate of the parameters
+  
   lst.parameters_previous.step <- object[(2*l+6):(3*l+5)]
   names(lst.parameters_previous.step) <- object$contents$names.of.parameters
-  ## estimate from the previous step
+  ## estimate of the parameters from the previous step
 
-  if (IsListOK(lst.parameters_previous.step) && IsListOK(cov_m)) {
+  if (IsListOK(lst.parameters) && IsListOK(lst.parameters_previous.step) && IsListOK(cov_m)) {
 
     if (missing(xx)) {
       xx <- seq(from = min(x), to = max(x), length.out = 301)
     }
     yy <- sapply(xx, function(val, LP){do.call(LOF[[1]], args=c(val, LP))}, lst.parameters_previous.step)
+    ## the middle of the confidence interval
+    
+    true.yy <- sapply(xx, function(val, LP){do.call(LOF[[1]], args=c(val, LP))}, lst.parameters)
+    ## the real etimate of a given function
 
     Omega <- sapply(1:l, function(i) {
       sapply(xx, function(val, LP){do.call(LOF[[2+i]], args=c(val, LP))}, lst.parameters_previous.step)
@@ -73,7 +81,6 @@ confBands.OEFPIL <- function(object, xx, signif.level = 0.05, new.obs.variance) 
     ## i-th row of matrix is value of vector omega in the point xx[i]
 
     variance <- apply(((Omega %*% cov_m) * Omega), 1, sum)
-
 
     if (missing(new.obs.variance)) {
 
@@ -83,9 +90,7 @@ confBands.OEFPIL <- function(object, xx, signif.level = 0.05, new.obs.variance) 
 
     }
 
-
     sl <- sort(c(signif.level/2, 1 - signif.level/2), decreasing = FALSE)
-
 
     d <- length(signif.level)
     k <- length(xx)
@@ -104,7 +109,7 @@ confBands.OEFPIL <- function(object, xx, signif.level = 0.05, new.obs.variance) 
     colnames(PointwiseCB) <- paste(round(sl * 100, 2), "%")
     colnames(PredictCB) <- paste(round(sl * 100, 2), "%")
 
-    return(invisible(list(xx = xx, yy = yy, PointwiseCB = PointwiseCB, PredictCB = PredictCB)))
+    return(invisible(list(xx = xx, yy = true.yy, PointwiseCB = PointwiseCB, PredictCB = PredictCB)))
   }
 }
 

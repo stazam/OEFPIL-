@@ -79,9 +79,8 @@ plot.OEFPIL <- function(x, xx, signif.level, interval, new.obs.variance, ...) {
   if (missing(new.obs.variance)) {
     CM <- x$contents$CM
     n <- length(diag(CM)) / 2
-    new.obs.variance <- mean(diag(CM)[1:n]) + mean(diag(CM)[(n+1):(2*n)])
+    new.obs.variance <- mean(diag(CM)[(n+1):(2*n)])
     ## "estimation" of variance of the new observation (needed for prediction interval)
-
   }
 
   CB <- confBands(x, xx = xx, signif.level = signif.level, new.obs.variance = new.obs.variance)
