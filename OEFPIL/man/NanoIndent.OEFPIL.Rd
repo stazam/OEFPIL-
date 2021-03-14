@@ -65,7 +65,7 @@ In this special case of the \code{OEFPIL} function, the dependence of parameters
 the form: \eqn{F = \alpha * (h - h_p)^m}, where \code{F} is load and \code{h} depth measured within a nanoindentation process.
 It is possible to set own starting values of the parameters, in the other case these values are calculated by the algorithm and printing into the console.
 
-A selection of the part of the unloading curve fitted by a power law function is provided with \code{lcut} and \code{ucut} arguments. The default values 0.4 and 0.98 corresponds to the range 40 - 98\% \eqn{F_max} (maximum force) as recommended in ISO 14577 standard.
+A selection of the part of the unloading curve fitted by a power law function is provided with \code{lcut} and \code{ucut} arguments. The default values 0.4 and 0.98 corresponds to the range 40 - 98\% \eqn{F_{max}} (maximum force) as recommended in ISO 14577 standard.
 
 The \code{CM} has to be a \code{2n} covariance matrix (where \code{n} is length of \code{data}) of following structure: first \code{n} elements of the diagonal correspond to the variance of depth and other to the variance of load.
 If argument \code{CM} is missing, the input covariance matrix is set to a diagonal matrix with variance of depth and load (calculated from \code{uh} and \code{uF}) on the diagonal.
