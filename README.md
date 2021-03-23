@@ -1,9 +1,17 @@
+---
+title: "README"
+author: "stanislav zamecnik"
+date: "15 3 2021"
+output:
+  html_document: default
+  pdf_document: default
+---
 # OEFPIL
 
 
 ## Optimal Estimation of Parameters by Iterated Linearization
 
-The original version of this software was written in R by Stanislav Zámečník, Zdeňka Geršlová and Vojtěch Šindlář in year 2021. The package is based on thoretical backround of work of prof. Gejza Wimmer and afterwards implemented by meantioned authors. 
+The original version of this software was written in R by Stanislav Zamecnik, Zdenka Gerslova and Vojtech Sindlar in year 2021. The package is based on theoretical background of work of prof. Gejza Wimmer and afterwards implemented by mentioned authors. 
 Main features of package include:
 
 - estimation of parameters of nonlinear function by iterated linearization
@@ -86,7 +94,7 @@ Plot of estimated function
 plot(st1, signif.level = 0.05, interval = "conf", main  = "Estimated function by iterated linearization")
 ```
 
-![](OEFPIL/man/figure/unnamed-chunk-4-1.png)
+![](man/figure/unnamed-chunk-4-1.png)
 
 Ggplot graph of estimated function 
 
@@ -95,12 +103,17 @@ library(ggplot2)
 curvplot.OEFPIL(st1, signif.level = 0.05)
 ```
 
-![](OEFPIL/man/figure/unnamed-chunk-5-1.png)
+![](man/figure/unnamed-chunk-5-1.png)
 
 For more information and examples see:
 
 ```r
 ?OEFPIL
 ```
+This software OEFPIL was financed by the Technology Agency of the Czech Republic within the ZETA Programme. https://www.tacr.cz . 
+
+<p align= "center">
+<img src = "man/figure/logo_TACR.png" width = "200">
+</p>
 
 

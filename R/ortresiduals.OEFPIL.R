@@ -53,6 +53,7 @@ ortresiduals.OEFPIL <- function(object, min.c){
 
   x <- object$contents[[3]] ## x-ova data
   y <- object$contents[[4]] ## y-ova data
+  xname <- object$contents$idp.var.name
 
   ## setting value of argument a (if it is not defined in input)
   if(missing(min.c)){
@@ -75,7 +76,8 @@ ortresiduals.OEFPIL <- function(object, min.c){
   ftomin <- NULL
   ## rewriting main function in optimize requested format - ftomin() function
   formstring <- strsplit(object$contents$input.form.string, "~")[[1]][2]
-  eval(parse(text = paste("ftomin <- function(x){", formstring, "}", sep = "")))
+  formstringx <- gsub(xname, "x", formstring)
+  eval(parse(text = paste("ftomin <- function(x){", formstringx, "}", sep = "")))
 
   fceoptim <- function(f, x0, y0, min.c){
     ## input: f - function to minimize

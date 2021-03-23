@@ -11,11 +11,11 @@
 
 \item{...}{other arguments.}
 }
+\value{
+Function prints short summary of \code{"OEFPIL"} object into the console. In case of assigning value into the variable, it returns object of class \code{"OEFPIL"}, which is a list with components defined in \link{OEFPIL}.
+}
 \description{
 Function prints the information about an object of class \code{"OEFPIL"}.
-}
-\details{
-Function prints the formula and estimated parameters of the model from an \code{OEFPIL} object.
 }
 \examples{
 \dontshow{

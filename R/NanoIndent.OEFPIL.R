@@ -51,10 +51,10 @@
 #'
 #' @references ISO/IEC: \emph{14577-1:2015 Metallic materials – Instrumented indentation test for hardness and materials parameters – Part 1: Test method} (ISO/IEC, Internation Organisation for Standardisation, 2015).
 #'
-#' Anna Charvátová Campbell, Petr Grolich, Radek Šlesinger. \emph{Niget: Nanoindentation general evaluation tool}. SoftwareX (2019), \strong{Vol. 9}: 248–254.
-#' \url{https://doi.org/10.1016/j.softx.2019.03.001}.
+#' Anna Charvatova Campbell, Petr Grolich, Radek Slesinger. (2019). \emph{Niget: Nanoindentation general evaluation tool}. SoftwareX, \strong{Vol. 9}: 248–254.
+#' \doi{10.1016/j.softx.2019.03.001}.
 #'
-#' Köning, R., Wimmer, G. and Witkovský, V. \emph{Ellipse fitting by nonlinear constraints to demodulate quadrature homodyne interferometer signals and to determine the statistical uncertainty of the interferometric phase}. Measurement Science and Technology (2014).
+#' Koning, R., Wimmer, G. and Witkovsky, V. \emph{Ellipse fitting by nonlinear constraints to demodulate quadrature homodyne interferometer signals and to determine the statistical uncertainty of the interferometric phase}. Measurement Science and Technology (2014).
 #'
 #' @seealso \code{\link{OEFPIL}}
 #'

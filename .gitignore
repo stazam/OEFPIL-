@@ -5,6 +5,9 @@
 # Session Data files
 .RData
 
+# Github testing files
+.github
+
 # User-specific files
 .Ruserdata
 

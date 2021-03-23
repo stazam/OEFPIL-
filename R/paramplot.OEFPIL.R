@@ -83,15 +83,15 @@ paramplot.OEFPIL <- function(object){
     }
   }
 
-  m1 <- cf <- est <- sdest <- NULL
+  model <- cf <- est <- sdest <- NULL
   names(data[,3]) <- NULL
-  colnames(data) <- c("m1","cf", "est", "sdest")
-  data$m1 <- as.factor(data$m1)
+  colnames(data) <- c("model","cf", "est", "sdest")
+  data$model <- as.factor(data$model)
 
   # plotting graph with ggplot
-  ggplot(data, aes(x = m1, y = est, col = m1)) +
+  ggplot(data, aes(x = model, y = est, col = model)) +
     geom_pointrange(aes(ymin = est - sdest, ymax =  est + sdest))+
-    labs(x = "", y = "") +
+    labs(x = "", y = "", title = "Estimation of parameters with standard deviation") +
     facet_wrap(~ cf, scales = "free") +
     theme(axis.ticks.x = element_blank(), axis.text.x = element_blank())
 }

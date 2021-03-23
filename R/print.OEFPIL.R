@@ -5,8 +5,7 @@
 #' @param x an object of class \code{"OEFPIL"} (a result of a call to \code{\link{OEFPIL}}).
 #' @param ... other arguments.
 #'
-#' @details Function prints the formula and estimated parameters of the model from an \code{OEFPIL} object.
-#'
+#' @return Function prints short summary of \code{"OEFPIL"} object into the console. In case of assigning value into the variable, it returns object of class \code{"OEFPIL"}, which is a list with components defined in \link{OEFPIL}.
 #' @seealso \code{\link{OEFPIL}}
 #'
 #' @examples

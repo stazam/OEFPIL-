@@ -53,7 +53,7 @@ Models for OEPFIL function are specified symbolically. A typical model has the f
  \itemize{\item \code{y} is the (numerical) response vector,
            \item \code{x} is the predictor,
            \item terms \code{a_1,...,a_n} are parameters of specified model.}
- Function \code{f} is known nonlinear function with continuous second partial derivatives with respect to \code{x} and parameters \code{a_1,...a_n} (for more details see \emph{Kubáček}).
+ Function \code{f} is known nonlinear function with continuous second partial derivatives with respect to \code{x} and parameters \code{a_1,...a_n} (for more details see \emph{Kubacek}).
 
  All calculations are performed assuming normality of a response vector and measurements errors.
 
@@ -110,10 +110,10 @@ summary(output.form)
 
 }
 \references{
-Kubáček, L. and Kubáčková, L.\emph{Statistika a metrologie} (2000). Univerzita Palackého v Olomouci.
+Kubacek, L. and Kubackova, L. (2000) \emph{Statistika a metrologie}. Univerzita Palackeho v Olomouci.
 
-   Köning, R., Wimmer, G. and Witkovský, V. \emph{Ellipse fitting by nonlinear constraints to demodulate quadrature homodyne interferometer signals and to determine the statistical uncertainty of the interferometric phase}.
-    Measurement Science and Technology (2014).
+   Koning, R., Wimmer, G. and Witkovsky, V. (2014) \emph{Ellipse fitting by nonlinear constraints to demodulate quadrature homodyne interferometer signals and to determine the statistical uncertainty of the interferometric phase}.
+    Measurement Science and Technology.
 }
 \seealso{
 \code{\link{NanoIndent.OEFPIL}} and function \code{\link[minpack.lm]{nlsLM}} from \code{minpack.lm} package for nonlinear least square algorithms.

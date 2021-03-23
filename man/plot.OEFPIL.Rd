@@ -15,7 +15,7 @@
 
 \item{interval}{a character vector. It states type of an interval to draw. Following values are possible: \code{"conf"} for confidence interval, \code{"pred"} for prediction interval or \code{c("conf", "pred")} for both. If missing, no intervals are plotted.}
 
-\item{new.obs.variance}{the variance of a new observation for prediction interval computing.}
+\item{new.obs.variance}{the variance of a new observation for prediction interval computing (see \code{\link{confBands.OEFPIL}}).}
 
 \item{...}{additional arguments (same as in \link{plot} function) affecting the plot.}
 }
