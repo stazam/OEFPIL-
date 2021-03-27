@@ -552,7 +552,7 @@ OEFPILIter <- function(y0, x0, L, CM, max.iter = 100, see.iter.val = FALSE,
     Se <- diag(Esing$d)
     Seinv <- diag(1 / (Esing$d))
     Fmat <- Ve %*% Seinv
-    G <- forwardsolve(t(Lmat), Ue)
+    G <- backsolve(t(Lmat), Ue)
     Q21 <- Fmat %*% t(G)
     Q11 <- chol2inv(Lmat) - G %*% t(G)
     Q22 <- - Fmat %*% t(Fmat)
