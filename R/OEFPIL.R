@@ -586,7 +586,7 @@ OEFPILIter <- function(y0, x0, L, CM, max.iter = 100, see.iter.val = FALSE,
     }
     ## control of correctness of updated (improved) values (L1)
 
-    # The final number of iterations including zero step.
+    # The final number of performed iterations.
     it_num <- it_num + 1
 
     ## Condition which save and output all values of estimates in process of iteration
@@ -598,6 +598,12 @@ OEFPILIter <- function(y0, x0, L, CM, max.iter = 100, see.iter.val = FALSE,
       print(data.frame(L1, row.names = ""))
       print(- Q22)
       print("##########################################")
+    }
+    
+    if (it_num == max.iter) {
+      logg <- paste("The maximum number of iterations (i.e. ", it_num,") has been reached.", "\n", sep = "")
+      message(logg)
+      logs <- paste(na.omit(logs), logg, sep = "//")
     }
 
     if (!missing(save.file.name)) {
